@@ -1,1 +1,8 @@
 .DS_Store
+.vscode
+
+*/cheatsheet.log
+*/cheatsheet.aux
+*/cheatsheet.fdb_latexmk
+*/cheatsheet.fls
+*/cheatsheet.synctex.gz
