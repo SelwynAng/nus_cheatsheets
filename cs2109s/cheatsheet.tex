@@ -344,7 +344,7 @@
       \begin{itemize}
         \item Ideally select an attribute that splits examples into "all positive" or "all negative"
         \item \underline{Entropy} (Measure of randomness): $I(P(v_1),...,P(v_n)) = - \sum_{i=1}^{n}P(v_i)log_2P(v_i)$, where for data set containing $p$ positive \& $n$ negative examples, $I(\frac{p}{p+n}, \frac{n}{p+n}) = -\frac{p}{p+n}log_2\frac{p}{p+n}-\frac{n}{p+n}log_2\frac{n}{p+n}$ \\
-        \textit{Note: I(1,0) = I(0,1) = 0}
+        \textit{Note: I(1,0) = I(0,1) = 0, I(0.5, 0,5) = 1}
         \item \underline{Information Gain} (Entropy of curr. node - Total Entropy of children nodes): $IG(A) = I(\frac{p}{p+n}, \frac{n}{p+n}) - remainder(A)$ \\
         remainder(A) = $\sum_{i=1}^{v} \frac{p_i+n_i}{p+n} I(\frac{p_i}{p_i+n_i}, \frac{n_i}{p_i+n_i})$, where examples are split into $v$ subsets by attribute $A$
       \end{itemize}
@@ -353,6 +353,17 @@
       \item \textbf{Overfitting:} Decision Tree is perfect on training data, but worse on test data
       \item \textbf{Occam Razor:} Prefer short/simple hypothesis (long/complex hypothesis that fits data may be coincidence)
       \item \textbf{Pruning:} Prevents nodes from being split even when it fails to cleanly separate examples (Min samples leaf: Merge until leaf node is above min. samples number $\vert$ Max depth: Merge until leaf nodes are at depth less than max depth)
+    \end{itemize}
+
+    \section{Midterms PYP Pointers}
+    \begin{itemize}
+      \item \textbf{Tree Search VS Graph Search:} Assuming the problem consists of discrete states (eg. pitcher problem), search space using tree search may be infinite (Eg. we keep filling up and emptying pitcher) $\rightarrow$ but using graph search will make search space finite (graph search will not revisit visited states)
+      \item \textbf{Heuristics:} 
+      \begin{itemize}
+        \item Max of 2 admissible heuristics ($max(h_0, h_1)$) for a problem is also an admissible heuristic $\rightarrow$ $max(h_0, h_1)$ is also dominant over $h_0$ \& $h_1$ since it takes max of both heuristics
+        \item Given $h_0$ is admissible for problem $p_0$ \& $h_1$ is admissible for problem $p_1$ $\rightarrow$ $h_0$ \& $h_1$ are admissible for the combined problem $p_0 + p_1$ $\rightarrow$ $max(h_0, h_1)$ is also admissible and dominant for $p_0 + p_1$
+        \item If heuristic is \textbf{consistent}, it must be \textbf{admissible} too!
+      \end{itemize}
     \end{itemize}
   \end{multicols*}
 \end{document}
