@@ -355,15 +355,58 @@
       \item \textbf{Pruning:} Prevents nodes from being split even when it fails to cleanly separate examples (Min samples leaf: Merge until leaf node is above min. samples number $\vert$ Max depth: Merge until leaf nodes are at depth less than max depth)
     \end{itemize}
 
+    \section{Tutorials Pointers}
+    \begin{itemize}
+      \item \textbf{DFS:} DFS utilizes $O(bm)$ memory as DFS must store all nodes along the current path from root to the deepest node explored, along with branching factor $b$ at each level
+      \item \textbf{UCS vs Dijkstra:} 2 algos are the same (both traverse search space in the manner, using a PQ to keep track of which nodes/states to visit next), but can argue that Dijkstra finds the shortest path to every node from a single source, while UCS only finds the shortest path to goal states
+    \end{itemize}
+
     \section{Midterms PYP Pointers}
     \begin{itemize}
       \item \textbf{Tree Search VS Graph Search:} Assuming the problem consists of discrete states (eg. pitcher problem), search space using tree search may be infinite (Eg. we keep filling up and emptying pitcher) $\rightarrow$ but using graph search will make search space finite (graph search will not revisit visited states)
+      \item \textbf{Tree Search:}
+      \begin{itemize}
+        \item If optimal solution is needed: use BFS (for problems where each action has same cost), use UCS (for problems where each action has different cost), use IDS (if space is more important concern than time, since BFS is space inefficient)
+        \item If optimal solution is not needed, but we need to preserve space: use DLS
+        \item \underline{Termination \& Completeness on Tree Search Algorithms:}
+        \begin{itemize}
+          \item BFS is complete, but may not terminate
+          \item DFS is incomplete and may not terminate
+          \item UCS is complete, but may not terminate
+          \item IDS is complete, but may not terminate (unless depth limiting condition is applied)
+          \item DLS is complete and terminates regardless of whether a solution exists due to its depth limiting property
+        \end{itemize}
+      \end{itemize}
       \item \textbf{Heuristics:} 
       \begin{itemize}
         \item Max of 2 admissible heuristics ($max(h_0, h_1)$) for a problem is also an admissible heuristic $\rightarrow$ $max(h_0, h_1)$ is also dominant over $h_0$ \& $h_1$ since it takes max of both heuristics
         \item Given $h_0$ is admissible for problem $p_0$ \& $h_1$ is admissible for problem $p_1$ $\rightarrow$ $h_0$ \& $h_1$ are admissible for the combined problem $p_0 + p_1$ $\rightarrow$ $max(h_0, h_1)$ is also admissible and dominant for $p_0 + p_1$
         \item If heuristic is \textbf{consistent}, it must be \textbf{admissible} too!
+        \item If heuristic is \textbf{non-admissible}, it must be \textbf{non-consistent} too!
+        \item \underline{Common Proving Techniques:}
+        \begin{itemize} 
+          \item \textit{Consistency:} Decrease in heuristic value must not exceed action cost ($h(n) - h(n') \leq c(n,a,n')$) $\rightarrow$ Focus on maximum decrease in heuristic value and showing it is less than actual action cost
+          \item \textit{Relaxed Problem:} True cost/admissible heuristic of a relaxed problem is an admissible heuristic to original problem, True cost of relaxed problem is consistent heuristic to original problem
+        \end{itemize}
+        \item \textbf{Dominance:} Not useful to describe dominance between non-admissible heuristics since non-admissible heuristics lead to sub-optimal search $\rightarrow$ for consistency sake, just treat it such that dominance concept can apply to both admissible \& non-admissible heuristics
       \end{itemize}
     \end{itemize}
+
+    \subsection{Log Values (Base 2)}
+    \begin{enumerate}
+      \item $log_21 = 0$
+      \item $log_22 = 1$
+      \item $log_23 = 1.58496$
+      \item $log_24 = 2$
+      \item $log_25 = 2.32192$
+      \item $log_26 = 2.58496$
+      \item $log_27 = 2.80735$
+      \item $log_28 = 3$
+      \item $log_29 = 3.16993$
+      \item $log_210 = 3.32193$
+    \end{enumerate}
+
+    \subsection{Entropy Table}
+    \includegraphics[width=0.95\linewidth]{14_entropy_table.jpg}
   \end{multicols*}
 \end{document}
