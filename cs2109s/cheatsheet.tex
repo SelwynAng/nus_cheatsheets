@@ -77,7 +77,7 @@
 \begin{document}
 \raggedright
 \tiny
-\begin{multicols*}{5}
+\begin{multicols}{5}
     \setlength{\columnseprule}{0.25pt}
 
     \begin{tightcenter}
@@ -406,7 +406,17 @@
       \item $log_210 = 3.32193$
     \end{enumerate}
 
-    \subsection{Entropy Table}
+  \end{multicols}
+  \hrulefill
+\\\begin{multicols}{3}
+  \subsection{Entropy Table}
+    $I(\frac{row}{row+col}, \frac{col}{row+col})$
     \includegraphics[width=0.95\linewidth]{14_entropy_table.jpg}
-  \end{multicols*}
+  \end{multicols}
+  \hrulefill
+\\\begin{multicols}{1}
+    \subsection{Log Base 2 Table}
+      $log(\frac{col}{row})$
+      \includegraphics[width=1.5\linewidth]{15_log_base_two.png}
+  \end{multicols}
 \end{document}
