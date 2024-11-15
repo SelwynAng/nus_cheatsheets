@@ -8,6 +8,7 @@
 \usepackage{enumitem} 
 \usepackage{amssymb}
 \usepackage{graphicx}
+\usepackage{amsmath}
 \setlist{nosep}
 
 \graphicspath{{./images/}}
@@ -77,7 +78,7 @@
 \begin{document}
 \raggedright
 \tiny
-\begin{multicols}{5}
+\begin{multicols*}{5}
     \setlength{\columnseprule}{0.25pt}
 
     \begin{tightcenter}
@@ -355,68 +356,150 @@
       \item \textbf{Pruning:} Prevents nodes from being split even when it fails to cleanly separate examples (Min samples leaf: Merge until leaf node is above min. samples number $\vert$ Max depth: Merge until leaf nodes are at depth less than max depth)
     \end{itemize}
 
-    \section{Tutorials Pointers}
-    \begin{itemize}
-      \item \textbf{DFS:} DFS utilizes $O(bm)$ memory as DFS must store all nodes along the current path from root to the deepest node explored, along with branching factor $b$ at each level
-      \item \textbf{UCS vs Dijkstra:} 2 algos are the same (both traverse search space in the manner, using a PQ to keep track of which nodes/states to visit next), but can argue that Dijkstra finds the shortest path to every node from a single source, while UCS only finds the shortest path to goal states
-    \end{itemize}
+    % \section{Tutorials Pointers}
+    % \begin{itemize}
+    %   \item \textbf{DFS:} DFS utilizes $O(bm)$ memory as DFS must store all nodes along the current path from root to the deepest node explored, along with branching factor $b$ at each level
+    %   \item \textbf{UCS vs Dijkstra:} 2 algos are the same (both traverse search space in the manner, using a PQ to keep track of which nodes/states to visit next), but can argue that Dijkstra finds the shortest path to every node from a single source, while UCS only finds the shortest path to goal states
+    % \end{itemize}
 
-    \section{Midterms PYP Pointers}
-    \begin{itemize}
-      \item \textbf{Tree Search VS Graph Search:} Assuming the problem consists of discrete states (eg. pitcher problem), search space using tree search may be infinite (Eg. we keep filling up and emptying pitcher) $\rightarrow$ but using graph search will make search space finite (graph search will not revisit visited states)
-      \item \textbf{Tree Search:}
-      \begin{itemize}
-        \item If optimal solution is needed: use BFS (for problems where each action has same cost), use UCS (for problems where each action has different cost), use IDS (if space is more important concern than time, since BFS is space inefficient)
-        \item If optimal solution is not needed, but we need to preserve space: use DLS
-        \item \underline{Termination \& Completeness on Tree Search Algorithms:}
+    % \section{Midterms PYP Pointers}
+    % \begin{itemize}
+    %   \item \textbf{Tree Search VS Graph Search:} Assuming the problem consists of discrete states (eg. pitcher problem), search space using tree search may be infinite (Eg. we keep filling up and emptying pitcher) $\rightarrow$ but using graph search will make search space finite (graph search will not revisit visited states)
+    %   \item \textbf{Tree Search:}
+    %   \begin{itemize}
+    %     \item If optimal solution is needed: use BFS (for problems where each action has same cost), use UCS (for problems where each action has different cost), use IDS (if space is more important concern than time, since BFS is space inefficient)
+    %     \item If optimal solution is not needed, but we need to preserve space: use DLS
+    %     \item \underline{Termination \& Completeness on Tree Search Algorithms:}
+    %     \begin{itemize}
+    %       \item BFS is complete, but may not terminate
+    %       \item DFS is incomplete and may not terminate
+    %       \item UCS is complete, but may not terminate
+    %       \item IDS is complete, but may not terminate (unless depth limiting condition is applied)
+    %       \item DLS is complete and terminates regardless of whether a solution exists due to its depth limiting property
+    %     \end{itemize}
+    %   \end{itemize}
+    %   \item \textbf{Heuristics:} 
+    %   \begin{itemize}
+    %     \item Max of 2 admissible heuristics ($max(h_0, h_1)$) for a problem is also an admissible heuristic $\rightarrow$ $max(h_0, h_1)$ is also dominant over $h_0$ \& $h_1$ since it takes max of both heuristics
+    %     \item Given $h_0$ is admissible for problem $p_0$ \& $h_1$ is admissible for problem $p_1$ $\rightarrow$ $h_0$ \& $h_1$ are admissible for the combined problem $p_0 + p_1$ $\rightarrow$ $max(h_0, h_1)$ is also admissible and dominant for $p_0 + p_1$
+    %     \item If heuristic is \textbf{consistent}, it must be \textbf{admissible} too!
+    %     \item If heuristic is \textbf{non-admissible}, it must be \textbf{non-consistent} too!
+    %     \item \underline{Common Proving Techniques:}
+    %     \begin{itemize} 
+    %       \item \textit{Consistency:} Decrease in heuristic value must not exceed action cost ($h(n) - h(n') \leq c(n,a,n')$) $\rightarrow$ Focus on maximum decrease in heuristic value and showing it is less than actual action cost
+    %       \item \textit{Relaxed Problem:} True cost/admissible heuristic of a relaxed problem is an admissible heuristic to original problem, True cost of relaxed problem is consistent heuristic to original problem
+    %     \end{itemize}
+    %     \item \textbf{Dominance:} Not useful to describe dominance between non-admissible heuristics since non-admissible heuristics lead to sub-optimal search $\rightarrow$ for consistency sake, just treat it such that dominance concept can apply to both admissible \& non-admissible heuristics
+    %   \end{itemize}
+    % \end{itemize}
+
+    % \subsection{Log Values (Base 2)}
+    % \begin{enumerate}
+    %   \item $log_21 = 0$
+    %   \item $log_22 = 1$
+    %   \item $log_23 = 1.58496$
+    %   \item $log_24 = 2$
+    %   \item $log_25 = 2.32192$
+    %   \item $log_26 = 2.58496$
+    %   \item $log_27 = 2.80735$
+    %   \item $log_28 = 3$
+    %   \item $log_29 = 3.16993$
+    %   \item $log_210 = 3.32193$
+    % \end{enumerate}
+
+    \section{Linear Regression}
+      \subsection{Linear Regression Basics}
         \begin{itemize}
-          \item BFS is complete, but may not terminate
-          \item DFS is incomplete and may not terminate
-          \item UCS is complete, but may not terminate
-          \item IDS is complete, but may not terminate (unless depth limiting condition is applied)
-          \item DLS is complete and terminates regardless of whether a solution exists due to its depth limiting property
+          \item \textbf{Purpose:} Given $h_w(x) = w_0 + w_1x + ...$, find a $w$ that fits the data well
+          \item \textbf{Mean Squared Error (Loss Function):} $J_{MSE}(w) = \frac{1}{2m}\sum^m_{ i=1}(h_w(x^{(i)})-y^{(i)})^2$
+          \begin{enumerate}
+            \item $m$ is the number of training examples
+            \item $h_w(x^{(i)}) == \hat{y}^{(i)}$
+            \item $y^{(i)}$ is actual $y$ value for the ith training example
+          \end{enumerate}
+          \item \textbf{Partial Derivative:} $\frac{\partial J_{MSE}(w)}{\partial w_1} = \frac{1}{m}\sum^m_{i=1}(w_1x^{(i)}-y^{(i)})x^{(i)}$ (when we differentiate $J_{MSE}(w)$ wrt. particiular weight, i.e. $w_1$)
         \end{itemize}
-      \end{itemize}
-      \item \textbf{Heuristics:} 
-      \begin{itemize}
-        \item Max of 2 admissible heuristics ($max(h_0, h_1)$) for a problem is also an admissible heuristic $\rightarrow$ $max(h_0, h_1)$ is also dominant over $h_0$ \& $h_1$ since it takes max of both heuristics
-        \item Given $h_0$ is admissible for problem $p_0$ \& $h_1$ is admissible for problem $p_1$ $\rightarrow$ $h_0$ \& $h_1$ are admissible for the combined problem $p_0 + p_1$ $\rightarrow$ $max(h_0, h_1)$ is also admissible and dominant for $p_0 + p_1$
-        \item If heuristic is \textbf{consistent}, it must be \textbf{admissible} too!
-        \item If heuristic is \textbf{non-admissible}, it must be \textbf{non-consistent} too!
-        \item \underline{Common Proving Techniques:}
-        \begin{itemize} 
-          \item \textit{Consistency:} Decrease in heuristic value must not exceed action cost ($h(n) - h(n') \leq c(n,a,n')$) $\rightarrow$ Focus on maximum decrease in heuristic value and showing it is less than actual action cost
-          \item \textit{Relaxed Problem:} True cost/admissible heuristic of a relaxed problem is an admissible heuristic to original problem, True cost of relaxed problem is consistent heuristic to original problem
+      
+        \subsection{Gradient Descent}
+        \begin{itemize}
+          \item \textbf{Gradient Definition:} $\begin{bmatrix} \frac{\partial J(w)}{\partial w_0} \\ \frac{\partial J(w)}{\partial w_1} \\ ... \end{bmatrix}$, where each expression is a partial derivative wrt. different weights
+          \item \textbf{Gradient Descent Algorithm:}
+          \begin{enumerate}
+            \item Start at some $w$
+            \item Pick a nearby $w$ that reduces $J(w):$ $w_j \leftarrow w_j - \gamma \frac{\partial J(w_0, w_1, ...)}{\partial w_j}$
+            \item Repeat until minimum is reached
+          \end{enumerate}
+          \item \textbf{Gradient Descent with 2 parameters:} Always store gradient in intermediate variable, then conduct gradient descent on each weight separately $\rightarrow$ Do not conduct gradient descent on all weights concurrently (or else a new weight will be updating another weight unknowingly)
+          \item \textbf{Theorem:} $J_{MSE}(w)$ is convex for linear regression $\rightarrow$ 1 minimum, global minimum only
         \end{itemize}
-        \item \textbf{Dominance:} Not useful to describe dominance between non-admissible heuristics since non-admissible heuristics lead to sub-optimal search $\rightarrow$ for consistency sake, just treat it such that dominance concept can apply to both admissible \& non-admissible heuristics
-      \end{itemize}
-    \end{itemize}
 
-    \subsection{Log Values (Base 2)}
-    \begin{enumerate}
-      \item $log_21 = 0$
-      \item $log_22 = 1$
-      \item $log_23 = 1.58496$
-      \item $log_24 = 2$
-      \item $log_25 = 2.32192$
-      \item $log_26 = 2.58496$
-      \item $log_27 = 2.80735$
-      \item $log_28 = 3$
-      \item $log_29 = 3.16993$
-      \item $log_210 = 3.32193$
-    \end{enumerate}
+        \subsection{Gradient Descent Variants}
+        \begin{enumerate}
+          \item \textbf{Batch Gradient Descent:} All training examples involved
+          \item \textbf{Mini-batch Gradient Descent:} Subset of training examples at a time; Cheaper (faster); Random, may escape local minima for non-convex function
+          \item \textbf{Stochastic Gradient Descent:} 1 random data point at a time (Order which we use the samples should be randomly decided); Cheapest (fastest); More random, may escape local minima for non-convex function
+        \end{enumerate}
 
-  \end{multicols}
+        \subsection{Extension of Linear Regression}
+        \begin{itemize}
+          \item \textbf{Features of different scales:} A feature with smaller magnitude will take much smaller steps each update than another feature with larger magnitude → Converging becomes slower
+          \begin{enumerate}
+            \item \underline{Solution 1:} Have different learning rates for each weight
+            \item \underline{Solution 2:} Conduct mean normalisation $x_j \leftarrow \frac{x_j-\mu_j}{\sigma_j}$, where $\sigma_j$ is the standard deviation of the feature across all training examples \& $\mu_j$ is the mean of the feature across all training examples
+          \end{enumerate}
+          \item \textbf{Non-linear relationship:} Use polynomial regression for non-linear relationship (transform features) | Terms that are raised to a power more than 1 might need to be scaled as they can become too big | Max degree of polynomial needed to fit any set of $n$ points is $n-1$ (otherwise will overfit)
+        \end{itemize}
+
+        \subsection{Normal Equation}
+        \begin{itemize}
+          \item \textbf{Normal Equation Procedure:}
+          \includegraphics[width=0.6\linewidth]{16_matrices.png}
+          \includegraphics[width=0.45\linewidth]{17_normal_equation.png} \\
+          $X^TX$becomes non-invertible when it is singular, which occurs when its rows (repeated or identical data points) or columns (redundant or highly correlated features) are linearly dependent
+          \item \textbf{Gradient Descent VS Normal Equation:}
+          \includegraphics[width=0.8\linewidth]{18_comparision.png}
+        \end{itemize}
+
+        \section{Logistic Regression}
+        \subsection{Logistic Regression Basics}
+        \begin{itemize}
+          \item Used for classification problems 
+          \item \textbf{Logistic Regression (1D)}
+          \begin{itemize}
+            \item \underline{Logistic Function:} $\sigma(z) = \frac{1}{1 + e^{-z}}$, where $z = wx$
+            \item Output of $\sigma(z)$ aka. $h_w(x)$ is in [0,1] and treated as a probability $\rightarrow$ If $\sigma(z)>\alpha$, then label as 1
+          \end{itemize}
+          \item \textbf{Logistic Regression (2D):} Decision boundary is a line of intersection between prediction boundary plane and plane containing all the prediction points $\rightarrow$ Decision boundary is perpendicular to $w$
+        \end{itemize}
+
+        \subsection{Measuring Fit}
+        \begin{itemize}
+          \item \textbf{Why MSE is bad for Logistic Regression:} $J_{MSE}$ for logistic regression would not work well as it is non-linear $\rightarrow$ non-convex $\rightarrow$ multiple local minima
+          \item \textbf{Cross Entropy for $C$ classes:} $CE(y, \hat{y}) = \sum_{i=1}^C -y_ilog(\hat{y}_i)$ (Measures the average number of bits required to identify an event from 1 probability distribution → measures the difference between discovered probability distribution of a classification model \& predicted values)
+          \item \textbf{Binary Cross Entropy for 2 classes:} $BCE(y, \hat{y}) = -ylog(\hat{y}) -(1-y)log(1-\hat{y})$
+          \begin{enumerate}
+            \item Given $y=1$ \& value of $\hat{y}$ is high, model will be rewarded for making a correct prediction
+            \item Given $y=1$ \& value of $\hat{y}$ is low, model will be penalised for making a wrong prediction
+          \end{enumerate}
+          \item \textbf{BCE Loss Function:} $J_{BCE}(w) = \frac{1}{m}\sum^m_{i=1}BCE(y^{(i)}, h_w(x^{(i)}))$, which is convex for logistic regression $\rightarrow$ Can find global minimum during gradient descent
+        \end{itemize}
+
+        \subsection{Gradient Descent}
+        \begin{itemize}
+          \item \textbf{Partial Derivative:} $\frac{\partial J_{BCE}(w)}{\partial w_0} = \frac{1}{m} \sum_{i=1}^{m} \left( h_w(x^{(i)}) - y^{(i)} \right)$ \\ $\frac{\partial J_{BCE}(w)}{\partial w_1} = \frac{1}{m} \sum_{i=1}^{m} \left( h_w(x^{(i)}) - y^{(i)} \right) x_1^{(i)}$
+        \end{itemize}
+
+  \end{multicols*}
   \hrulefill
-\\\begin{multicols}{3}
-  \subsection{Entropy Table}
-    $I(\frac{row}{row+col}, \frac{col}{row+col})$
-    \includegraphics[width=0.95\linewidth]{14_entropy_table.jpg}
-  \end{multicols}
-  \hrulefill
-\\\begin{multicols}{1}
-    \subsection{Log Base 2 Table}
-      $log(\frac{col}{row})$
-      \includegraphics[width=1.5\linewidth]{15_log_base_two.png}
-  \end{multicols}
+% \\\begin{multicols}{3}
+%   \subsection{Entropy Table}
+%     $I(\frac{row}{row+col}, \frac{col}{row+col})$
+%     \includegraphics[width=0.95\linewidth]{14_entropy_table.jpg}
+%   \end{multicols}
+%   \hrulefill
+% \\\begin{multicols}{1}
+%     \subsection{Log Base 2 Table}
+%       $log(\frac{col}{row})$
+%       \includegraphics[width=1.5\linewidth]{15_log_base_two.png}
+%   \end{multicols}
 \end{document}
