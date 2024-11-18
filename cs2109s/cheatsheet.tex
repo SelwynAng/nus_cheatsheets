@@ -84,76 +84,76 @@
     \begin{tightcenter}
         \fbox{%
           \parbox{0.8\linewidth}{\centering \textcolor{black}{
-              {\Large\textbf{CS2109S Midterms}}
+              {\Large\textbf{CS2109S Finals}}
             \\ \normalsize{AY24/25 SEM 1}}
             \\ {\footnotesize \textcolor{gray}{github/SelwynAng}}
           }%
         }
     \end{tightcenter}
     
-    \section{Introduction to AI}
-    \subsection{Intelligent Agents}
-    \includegraphics[width=0.7\linewidth]{1_PEAS.jpg}
-    \begin{itemize}
-      \item \textbf{PEAS} 
-      \begin{enumerate}
-        \item \underline{Performance Measure:} Best for whom, what are we optimizing, what information is available, any unintended effects, what are the costs 
-        \item \underline{Environment:} Refer to Environment section
-        \item \underline{Actuators:} Allow intelligent agent to take actions or affect its environment
-        \item \underline{Sensors:} Allow intelligent agent to perceive information about its environment 
-      \end{enumerate}
-      \item \textbf{Agent Function:} Maps from percept histories to actions, refer to Agent Function section
-    \end{itemize}
+    % \section{Introduction to AI}
+    % \subsection{Intelligent Agents}
+    % \includegraphics[width=0.7\linewidth]{1_PEAS.jpg}
+    % \begin{itemize}
+    %   \item \textbf{PEAS} 
+    %   \begin{enumerate}
+    %     \item \underline{Performance Measure:} Best for whom, what are we optimizing, what information is available, any unintended effects, what are the costs 
+    %     \item \underline{Environment:} Refer to Environment section
+    %     \item \underline{Actuators:} Allow intelligent agent to take actions or affect its environment
+    %     \item \underline{Sensors:} Allow intelligent agent to perceive information about its environment 
+    %   \end{enumerate}
+    %   \item \textbf{Agent Function:} Maps from percept histories to actions, refer to Agent Function section
+    % \end{itemize}
     
-    \subsection{Task Environment}
-    \begin{enumerate}
-      \item \textbf{Fully Observable VS Partially Observable}
-      \begin{itemize}
-        \item \underline{Fully Observable:} Agent has complete \& accurate info about env state at all times (Eg. Chess)
-        \item \underline{Partially Observable:} Agent has access to incomplete, uncertain or noisy info about env state (Eg. Self-driving cars)
-      \end{itemize}
-      \item \textbf{Deterministic VS Stochastic VS Strategic}
-      \begin{itemize}
-        \item \underline{Deterministic:} Next env state is completely determined by current state \& agent action $\vert$ Outcome is fully predictable (Eg. Sudoku)
-        \item \underline{Stochastic:} Next env state is not completely determined by current state \& agent action $\vert$ Outcome is uncertain (Eg. Self-driving car)
-        \item \underline{Strategic:} Env is deterministic, but outcomes depend on other agents' actions, requiring agent to consider strategies \& behaviors of others (Eg. Chess)
-      \end{itemize}
-      \item \textbf{Episodic VS Sequential}
-      \begin{itemize}
-        \item \underline{Episodic:} Agent actions are divided into discrete periods, each episode is independent of one another, agent makes decisions based on current episode (Eg. Classification task)
-        \item \underline{Sequential:} Agent actions are inter-dependent, each action affects future states \& decisions, agent considers sequence of actions over time (Eg. Chess)
-      \end{itemize}
-      \item \textbf{Static VS Dynamic}
-      \begin{itemize}
-        \item \underline{Static:} Env state does not change while agent is deliberating
-        \item \underline{Dynamic:} Env state changes over time even when agent is deliberating
-        \item \underline{Semi-dynamic:} Env state does not change, but agent's performance score does
-      \end{itemize}
-      \item \textbf{Discrete VS Continuous}
-      \begin{itemize}
-        \item \underline{Discrete:} Finite \# of distinct, clearly defined percepts \& actions
-        \item \underline{Continuous:} Infinite \# of percepts \& actions
-      \end{itemize}
-      \item \textbf{Single Agent VS Multi Agent}
-      \begin{itemize}
-        \item \underline{Single Agent:} Agent operating by itself in an env
-        \item \underline{Multi Agent:} Multiple agents in an env
-      \end{itemize}
-    \end{enumerate}
+    % \subsection{Task Environment}
+    % \begin{enumerate}
+    %   \item \textbf{Fully Observable VS Partially Observable}
+    %   \begin{itemize}
+    %     \item \underline{Fully Observable:} Agent has complete \& accurate info about env state at all times (Eg. Chess)
+    %     \item \underline{Partially Observable:} Agent has access to incomplete, uncertain or noisy info about env state (Eg. Self-driving cars)
+    %   \end{itemize}
+    %   \item \textbf{Deterministic VS Stochastic VS Strategic}
+    %   \begin{itemize}
+    %     \item \underline{Deterministic:} Next env state is completely determined by current state \& agent action $\vert$ Outcome is fully predictable (Eg. Sudoku)
+    %     \item \underline{Stochastic:} Next env state is not completely determined by current state \& agent action $\vert$ Outcome is uncertain (Eg. Self-driving car)
+    %     \item \underline{Strategic:} Env is deterministic, but outcomes depend on other agents' actions, requiring agent to consider strategies \& behaviors of others (Eg. Chess)
+    %   \end{itemize}
+    %   \item \textbf{Episodic VS Sequential}
+    %   \begin{itemize}
+    %     \item \underline{Episodic:} Agent actions are divided into discrete periods, each episode is independent of one another, agent makes decisions based on current episode (Eg. Classification task)
+    %     \item \underline{Sequential:} Agent actions are inter-dependent, each action affects future states \& decisions, agent considers sequence of actions over time (Eg. Chess)
+    %   \end{itemize}
+    %   \item \textbf{Static VS Dynamic}
+    %   \begin{itemize}
+    %     \item \underline{Static:} Env state does not change while agent is deliberating
+    %     \item \underline{Dynamic:} Env state changes over time even when agent is deliberating
+    %     \item \underline{Semi-dynamic:} Env state does not change, but agent's performance score does
+    %   \end{itemize}
+    %   \item \textbf{Discrete VS Continuous}
+    %   \begin{itemize}
+    %     \item \underline{Discrete:} Finite \# of distinct, clearly defined percepts \& actions
+    %     \item \underline{Continuous:} Infinite \# of percepts \& actions
+    %   \end{itemize}
+    %   \item \textbf{Single Agent VS Multi Agent}
+    %   \begin{itemize}
+    %     \item \underline{Single Agent:} Agent operating by itself in an env
+    %     \item \underline{Multi Agent:} Multiple agents in an env
+    %   \end{itemize}
+    % \end{enumerate}
 
-    \subsection{Agent Structures}
-    \textit{Note: Agent is completely specified by Agent Function mapping percept sequences to actions}
-    \begin{enumerate}
-      \item \textbf{Simple Reflex Agent:} Operates based on a set of predefined rules or conditions $\rightarrow$ Reacts to current state of env with a corresponding action $\rightarrow$ Does not have memory of past states or actions \& does not consider future consequences
-      \item \textbf{Model-based Reflex Agent:} Extends simple reflex agent by maintaining internal model of world $\rightarrow$ Allows agent to keep track of current env state \& handle situations where env state is partially observable or changes over time
-      \item \textbf{Goal-based Agent:} Operates with specific goals in mind $\rightarrow$ Selects actions based on ability to achieve these goals $\rightarrow$ Considers future \& plans its actions to achieve desired end state $\vert$ Uses goal representation \& perform search and planning
-      \item \textbf{Utility-based Agent:} Extends goal based agent by considering not just whether goals are achieved, but how well they are achieved $\rightarrow$ Assigns utility value to different states \& chooses actions that maximize overall utility
-      \item \textbf{Learning Agent:} Improves performance over time by learning from its experiences $\vert$ Can be reflex, model, goal \& utility based
-    \end{enumerate}
-    \begin{itemize}
-      \item \textbf{Exploitation:} Maximize expected utility according to current knowledge about world
-      \item \textbf{Exploration:} Trying to learn more about the world
-    \end{itemize}
+    % \subsection{Agent Structures}
+    % \textit{Note: Agent is completely specified by Agent Function mapping percept sequences to actions}
+    % \begin{enumerate}
+    %   \item \textbf{Simple Reflex Agent:} Operates based on a set of predefined rules or conditions $\rightarrow$ Reacts to current state of env with a corresponding action $\rightarrow$ Does not have memory of past states or actions \& does not consider future consequences
+    %   \item \textbf{Model-based Reflex Agent:} Extends simple reflex agent by maintaining internal model of world $\rightarrow$ Allows agent to keep track of current env state \& handle situations where env state is partially observable or changes over time
+    %   \item \textbf{Goal-based Agent:} Operates with specific goals in mind $\rightarrow$ Selects actions based on ability to achieve these goals $\rightarrow$ Considers future \& plans its actions to achieve desired end state $\vert$ Uses goal representation \& perform search and planning
+    %   \item \textbf{Utility-based Agent:} Extends goal based agent by considering not just whether goals are achieved, but how well they are achieved $\rightarrow$ Assigns utility value to different states \& chooses actions that maximize overall utility
+    %   \item \textbf{Learning Agent:} Improves performance over time by learning from its experiences $\vert$ Can be reflex, model, goal \& utility based
+    % \end{enumerate}
+    % \begin{itemize}
+    %   \item \textbf{Exploitation:} Maximize expected utility according to current knowledge about world
+    %   \item \textbf{Exploration:} Trying to learn more about the world
+    % \end{itemize}
 
     \section{Solving Problems by Searching}
     \subsection{Designing an Agent}
@@ -308,12 +308,12 @@
     \end{itemize}
 
     \subsection{Performance Measure}
-    \begin{itemize}
-      \item \textbf{Regression:} \\
-      \includegraphics[width=0.75\linewidth]{9_mse.png}
-      \includegraphics[width=0.75\linewidth]{10_mae.png}
-      \item \textbf{Classification:} \\
-      \includegraphics[width=0.75\linewidth]{11_accuracy.png}
+    % \begin{itemize}
+      % \item \textbf{Regression:} \\
+      % \includegraphics[width=0.75\linewidth]{9_mse.png}
+      % \includegraphics[width=0.75\linewidth]{10_mae.png}
+      % \item \textbf{Classification:} \\
+      % \includegraphics[width=0.75\linewidth]{11_accuracy.png}
       \begin{multicols}{2}
         \includegraphics[width=0.8\linewidth]{12_confusion_matrix.png}
         \\
@@ -322,10 +322,10 @@
           \item \textbf{Accuracy:} $\frac{TP+TN}{TP+FN+FP+TN}$
           \item \textbf{Precision:} $\frac{TP}{TP+FP}$ (How many selected items are relevant, maximise if FP is costly)
           \item \textbf{Recall:} $\frac{TP}{TP+FN}$ (How many relevant items are selected, maximise if FN is dangerous)
+          \item \textbf{F1 Score:} $\frac{2}{1/precision + 1/recall}$
         \end{itemize}
       \end{multicols}
-      \item \textbf{F1 Score:} $\frac{2}{1/precision + 1/recall}$
-    \end{itemize}
+    % \end{itemize}
     
     \subsection{Decision Trees}
     \begin{itemize}
@@ -445,9 +445,9 @@
           \item \textbf{Features of different scales:} A feature with smaller magnitude will take much smaller steps each update than another feature with larger magnitude → Converging becomes slower
           \begin{enumerate}
             \item \underline{Solution 1:} Have different learning rates for each weight
-            \item \underline{Solution 2:} Conduct mean normalisation $x_j \leftarrow \frac{x_j-\mu_j}{\sigma_j}$, where $\sigma_j$ is the standard deviation of the feature across all training examples \& $\mu_j$ is the mean of the feature across all training examples
+            \item \underline{Solution 2:} Conduct mean normalization $x_j \leftarrow \frac{x_j-\mu_j}{\sigma_j}$, where $\sigma_j$ is the standard deviation of the feature across all training examples \& $\mu_j$ is the mean of the feature across all training examples
           \end{enumerate}
-          \item \textbf{Non-linear relationship:} Use polynomial regression for non-linear relationship (transform features) | Terms that are raised to a power more than 1 might need to be scaled as they can become too big | Max degree of polynomial needed to fit any set of $n$ points is $n-1$ (otherwise will overfit)
+          \item \textbf{Non-linear relationship:} Use polynomial regression for non-linear relationship (transform features) $|$ Terms that are raised to a power more than 1 might need to be scaled as they can become too big $|$ Max degree of polynomial needed to fit any set of $n$ points is $n-1$ (otherwise will overfit)
         \end{itemize}
 
         \subsection{Normal Equation}
@@ -479,7 +479,7 @@
           \item \textbf{Binary Cross Entropy for 2 classes:} $BCE(y, \hat{y}) = -ylog(\hat{y}) -(1-y)log(1-\hat{y})$
           \begin{enumerate}
             \item Given $y=1$ \& value of $\hat{y}$ is high, model will be rewarded for making a correct prediction
-            \item Given $y=1$ \& value of $\hat{y}$ is low, model will be penalised for making a wrong prediction
+            \item Given $y=1$ \& value of $\hat{y}$ is low, model will be penalized for making a wrong prediction
           \end{enumerate}
           \item \textbf{BCE Loss Function:} $J_{BCE}(w) = \frac{1}{m}\sum^m_{i=1}BCE(y^{(i)}, h_w(x^{(i)}))$, which is convex for logistic regression $\rightarrow$ Can find global minimum during gradient descent
         \end{itemize}
@@ -489,6 +489,332 @@
           \item \textbf{Partial Derivative:} $\frac{\partial J_{BCE}(w)}{\partial w_0} = \frac{1}{m} \sum_{i=1}^{m} \left( h_w(x^{(i)}) - y^{(i)} \right)$ \\ $\frac{\partial J_{BCE}(w)}{\partial w_1} = \frac{1}{m} \sum_{i=1}^{m} \left( h_w(x^{(i)}) - y^{(i)} \right) x_1^{(i)}$
         \end{itemize}
 
+        \subsection{Multi-Class Classification}
+        \begin{itemize}
+          \item Split the multi-class dataset into multiple binary classification problems $\rightarrow$ Binary classifier is then trained on each binary classification problem \& predictions are made using the model that is the most confident
+          \item \textbf{One VS All}: Fit 1 classifier per class, fit against all other classes $\rightarrow$ Pick the highest probability (Eg. 3 classes of cat, dog, rabbit $\rightarrow$ Classifier of cat against all other classes gives the highest probability $\rightarrow$ Predict as cat)
+          \item \textbf{One VS One}: Fit 1 classifier per class pair $\rightarrow$ Pick the most wins (Eg. Cat wins Dog, Rabbit wins Cat, Rabbit wins Dog $\rightarrow$ Predict as Rabbit)
+        \end{itemize}
+
+        \subsection{Performance Measure}
+        \begin{itemize}
+          \item \textbf{True Positive Rate \& False Positive Rate:} $TPR = \frac{TP}{TP+FN}, FPR = \frac{FP}{FP+TN}$
+          \item \textbf{Receiver Operator Characteristics (ROC) Curve:}
+          \begin{itemize}
+            \item Graphical plot that illustrates performance of a binary classifier
+            \item Different data plots are for different $\alpha$ threshold values
+            \item If ROC curve is above diagonal random line $\rightarrow$ Model is more accurate than random chance
+            \item \underline{Area under curve (AUC) of ROC:} AUC $>$ 0.5 means model is better than chance, AUC $\approx$ 1 means model is very accurate, AUC = 0 means model is predicting opposite class for each data
+          \end{itemize}
+          \includegraphics[width=0.6\linewidth]{19_ROC.png}
+        \end{itemize}
+
+        \subsection{Model Evaluation \& Selection, Hyper-parameter Tuning}
+        \begin{itemize}
+          \item \textbf{Model Selection (based on error function):}
+          \begin{enumerate}
+            \item Train each model $h_i$ on training set $D_{train}$
+            \item Run the models on validation set $D_{val}$ $\rightarrow$ Choose model with MINIMUM $J_{D_{val}}$
+            \item Test that model on a test set $D_{test}$ \& assess the model by computing $J_{D_{test}}$
+          \end{enumerate}
+          \item \textbf{Model Evaluation:} When comparing a logistic regression model's output with target label, use Accuracy or AUC-ROC, but not loss functions such as MSE, MAE, BCE
+          \item \textbf{Bias:} Error introduced by approximating a real-world problem (which may be very complex) with a simplified model $\rightarrow$ High bias is associated with Under-fitting \& perform poorly on both training and test data
+          \item \textbf{Variance:} Error introduced by the model's sensitivity to small fluctuations in the training data $\rightarrow$ High variance is associated with Over-fitting \& Perform well on the training data but poorly on test data
+          \item \textbf{Hyperparameter Tuning:} To find the best model by looping through:
+          \begin{enumerate}
+            \item Pick hyperparameters (Eg. Learning rate of gradient descent, max depth of decision tree, min sample of decision tree, loss function of regression model)
+            \item Train model with hyperparameters
+            \item Evaluate model
+          \end{enumerate}
+        \end{itemize}
+
+        \section{Support Vector Machine}
+        \subsection{Regularisation}
+        \begin{itemize}
+          \item \textbf{Methods to address overfitting}
+          \begin{enumerate}
+            \item Reduce number of features from high degree to low degree polynomial
+            \item \underline{Regularisation}: Keep all features but reduce magnitude of $w_j \rightarrow$ Done by adding the weights to cost function, but since we do not know which $w_j$ to penalise, we penalise all $w_j$ instead 
+          \end{enumerate}
+          \item \textbf{Linear Regression with Regularisation}
+          \begin{itemize}
+            \item \underline{Cost Function:} $J(w) = \frac{1}{2m} \sum_{i=1}^{m} \left( h_w(x^{(i)}) - y^{(i)} \right)^2 + \frac{\lambda}{2m} \sum_{j=1}^{n} w_j^2$
+            \item \underline{Gradient Descent:} $w_j \leftarrow w_j - \gamma \frac{1}{m} \sum_{i=1}^{m} \left( h_w(x^{(i)}) - y^{(i)} \right) x_j^{(i)} - \gamma \frac{\lambda}{m} w_j$
+            \item When $\gamma = 0$, there is no regularisation, overfitting occurs
+            \item When $\gamma = $ high value, there is too much regularisation, under fitting occurs (line equation reduces to just $w_0$) 
+          \end{itemize}
+          \item \textbf{Linear Regression with Regularisation (Normal Equation)}
+          \includegraphics[width=0.7\linewidth]{20_regularisation_normal_equation.png}
+          \begin{itemize}
+            \item Modify the regularisation matrix such that the 1st element (corresponding to bias term) is 0 instead of 1 → 1st row and column correspond to bias term $w_0$ and are set to 0 to not penalise the bias term
+          \end{itemize}
+          \item \textbf{Logistic Regression with Regularisation}
+          \begin{itemize}
+            \item \underline{Cost Function:} $J(w) = -\frac{1}{m} \sum_{i=1}^{m} [ y^{(i)} \log h_w(x^{(i)}) +\left( 1 - y^{(i)} \right) \log \left( 1 - h_w(x^{(i)}) \right)] + \frac{\lambda}{2m} \sum_{j=1}^{n} w_j^2$
+            \item \underline{Gradient Descent:} $w_j \leftarrow w_j - \gamma \frac{1}{m} \sum_{i=1}^{m} \left( h_w(x^{(i)}) - y^{(i)} \right) x_n^{(i)} - \gamma \frac{\lambda}{m} w_j$
+          \end{itemize}
+        \end{itemize}
+
+        \subsection{Support Vector Machine}
+        \begin{itemize}
+          \item \textbf{Background:} We want to maximise the margin between all positive \& negative points
+          \item \textbf{Procedure (Hard Margin SVM):}
+          \begin{enumerate}
+            \item Define decision rule (what is positive point, what is negative point): $\vec{w} \cdot \vec{x} + b \geq 0$ then positive
+            \item Equation of margin: $margin = \frac{2}{||w||}$
+            \item Constrained Optimization Problem: $\min \frac{1}{2} \|\mathbf{w}\|^2 \quad \text{s.t.} \quad y^{(i)} \left( \mathbf{w} \cdot \mathbf{x}^{(i)} + b \right) - 1 \geq 0$ \\ or \\ $\max_{\alpha \geq 0} \sum_{i} \alpha^{(i)} - \frac{1}{2} \sum_{i} \sum_{j} \alpha^{(i)} \alpha^{(j)} y^{(i)} y^{(j)}  \left( \mathbf{x}^{(i)} \cdot \mathbf{x}^{(j)} \right)$
+            \item Parameterization of decision boundary: Form system of equations using constraints and equation for the weights ($\sum_{i=1}^n\alpha^{(i)}y^{(i)}=0$ and $w=\sum_{i=1}^n\alpha^{(i)}y^{(i)}x^{(i)}$) $\rightarrow$ Obtain values of $\alpha^{(i)}$ with GJE
+            \includegraphics[width=0.85\linewidth]{25_lang_func.png}
+          \end{enumerate}
+          \item \textbf{Soft Margin SVM}
+          \includegraphics[width=0.95\linewidth]{21_softmargin.png}
+          \begin{itemize}
+            \item Soft margin SVM is used when data is not linearly separable (allows for some misclassification of training data)
+            \item Slack variable is introduced to handle instances where data points are either on wrong side of margin or even misclassified
+            \begin{enumerate}
+              \item $\xi_i = 0$ means data point lies either on or outside margin \& is correctly classified
+              \item $0 < \xi_i \leq 1$ means data point is within margin, but still correctly classified
+              \item $\xi_i > 1$ means data point is on wrong side of decision boundary (misclassified)
+            \end{enumerate}
+            \item $C$ is regularisation parameter that controls the trade-off between maximising the margin and minimising classification errors → Larger $C$ gives more importance to minimising slack variables (fewer misclassifications are allowed), while smaller C allows for more margin violations
+          \end{itemize}
+          \item \textbf{Kernel Methods \& Kernel Tricks}
+          \begin{itemize}
+            \item Used when data is truly not linearly separable
+            \item Use a kernel to transform data into higher dimensional space for non-linearly separable data
+          \end{itemize}
+        \end{itemize}
+
+        \section{Introduction to Neural Networks}
+        \subsection{Perceptron}
+        \begin{itemize}
+          \item \textbf{Formula:} $\hat{y} = h_w(x) = g(\sum_{i=0}^n w_ix_i)$, where $g$ is the activation function \& $g$ is normally the sign function ($g(z) = +1 if z \geq 0, else -1$) for perceptrons
+          \item \textbf{Perceptron Learning Algorithm:}
+          \begin{enumerate}
+            \item Initialise $\forall_iw_i$ (set random initial weights)
+            \item Loop (until convergence aka. no misclassification or max steps reached)
+            \begin{itemize}
+              \item For each instance $(x^{(i)}, y^{(i)})$, classify $\hat{y}^{(i)} = h_w(x^{(i)})$
+              \item Select 1 misclassified instance $(x^{(j)}, y^{(j)})$
+              \item Update weights: $w \leftarrow w + \gamma(y^{(j)} - \hat{y}^{(j)})x^{(j)}$ (remember to add bias term for $x$)
+            \end{itemize}
+          \end{enumerate}
+        \end{itemize}
+
+        \subsection{Neural Networks}
+        \begin{itemize}
+          \item \textbf{Single Layer Neural Network} 
+          \begin{itemize}
+            \item Same like perceptron, except $g$ is normally non-linear (Eg. $\sigma$, tanh, ReLU, Leaky ReLU)
+            \item NOT, AND, OR, NOR functions can be modelled by single layer, but XOR, XNOR require multi-layer (data is not linearly seprable)
+          \end{itemize}
+          \item \textbf{Matrix multiplication in Neural Network:} $\hat{y} = g(W^Tx)$ in a single layer, where \# of rows in $W$ == \# of inputs per perceptron, \# of columns in $W$ == \# of perceptrons in layer
+          \item \textbf{Forward Propagation across multi-layer:} Basically repeated matrix multiplication from right to left
+          \item \textbf{Regression \& Classification}
+          \begin{itemize}
+            \item Activation function of perceptron(s) in final layer determines if we are doing regression (linear/no activation), binary classification (sigmoid) or multi-class classification (softmax)
+            \item \underline{Softmax activation:} $g(z) = \frac{e^{z_i}}{\sum_{j=1}^Ce^{z_j}}$, where sum of outputs of all the final layer perceptrons is 1
+          \end{itemize}
+        \end{itemize}
+
+        \subsection{Gradient Descent with Neural Network}
+        \begin{itemize}
+          \item \textbf{Derivative of Sigmoid function:} $\sigma(x) = \frac{1}{1 + e^{-x}}$, $\sigma'(x)=\sigma(x)(1-\sigma(x))$
+          \item \textbf{Gradient Descent on Single layer Neural Network:} Given $a = \sum_{i=0}^nw_ix_i$, $\hat{y}=\sigma(a)$, $L = \frac{1}{2}(\hat{y} - y)^2$ (MSE), Weight update is $w_i \leftarrow w_i - \gamma\frac{dL}{dw_i}$ == $w_i \leftarrow w_i - \gamma(\hat{y}-y)\hat{y}(1-\hat{y})x_i$ (Derived with chain rule)
+        \end{itemize}
+
+        \subsection{Neural Network VS Other models}
+        \begin{enumerate}
+          \item \textbf{Logistic Regression:} Has Linear, Non-robust decision boundary (prone to misclassification since decision boundary can be too close to data points)
+          \item \textbf{Logistic Regression with Feature Mapping:} Has Non-linear, Non-robust decision boundary (prone to misclassification since decision boundary can be too close to data points)
+          \item \textbf{Support Vector Machine:} Has Non-linear, Robust decision boundary (decision boundary is guaranteed to be far from data points)
+          \item \textbf{Neural Networks:} Has Non-linear, non-robust decision boundary (prone to misclassification since decision boundary can be too close to data points)
+        \end{enumerate}
+
+        \subsection{Back Propagation}
+        \begin{itemize}
+          \item \textbf{Chain Rule Background:}
+          \begin{enumerate}
+            \item \underline{1 intermediate variable:} Given $a=f(x), z=g(a)$, then $\frac{dz}{dx} = \frac{dz}{da}\frac{da}{dx}$
+            \item \underline{2 intermediate variables:} Given $a=f(x), b=g(x), z=h(a,b)$, then $\frac{dz}{dx} = \frac{dz}{da}\frac{da}{dx} + \frac{dz}{db}\frac{db}{dx}$
+          \end{enumerate}
+          \item \textbf{Back Propagation with Linear Activation:}
+          \begin{itemize}
+            \item Given linear activation $g(x)=x$ and loss function $L=\frac{1}{2}(\hat{y} - y)^2$
+            \item Do 1 round of forward propagation first, get the all the nodes' values $(v_i, u_i)$ first
+            \item Do 1 round of back propagation next (RIGHT TO LEFT), calculating all the $\frac{dL}{da_i}$ then $\frac{dL}{dw_i}$ and then updating the weights via $w_i \leftarrow w_i - \gamma \frac{dL}{dw_i}$ \\
+            \includegraphics[width=0.5\linewidth]{22_backprop_single_unit.png}
+            \item $\frac{dL}{dw_i}=\frac{dL}{du_i}\frac{du_i}{dw_i}=\frac{dL}{du_i}v_i$
+            \includegraphics[width=0.7\linewidth]{23_backprog_linear.png}
+          \end{itemize}
+          \item \textbf{Back Propagation with Non-linear Activation:}
+          \begin{itemize}
+            \item Given non-linear activation $g(x)$ and loss function $L=\frac{1}{2}(\hat{y} - y)^2$
+            \item Same as linear activation, except need to account for $g'(z_i)$
+            \includegraphics[width=0.75\linewidth]{24_backprog_non_linear.png}
+          \end{itemize}
+        \end{itemize}
+
+        \section{Convolution Neural Network}
+        \subsection{Purpose}
+        \begin{itemize}
+          \item Automatically \& efficiently learn features from data while maintaining spatial relationships between pixels
+          \item Does not make sense to have $800\times800\times100$ = 64 million weights for a neural network with 100 neurons for a $800\times800$ input pixel image $\rightarrow$ Use CNN instead
+        \end{itemize}
+        
+        \subsection{Convolution:2D}
+        \begin{itemize}
+          \item Given image input $X$ and kernel $W$ $\rightarrow$ Multiply sliding input window with kernel then sum $\rightarrow$ Output a feature map
+          \item If we want to detect 1 more feature, we use another kernel and form another feature map
+        \end{itemize}
+
+        \subsection{Convolution Tricks}
+        \begin{itemize}
+          \item \textbf{Add Padding:} Add padding of 0s to image input $\rightarrow$ Resulting feature map can be same size as original image input $\rightarrow$ Without padding, size of feature maps would shrink with each layer, which could lead to loss of important information, especially near the edges of the image
+          \item \textbf{Add Strides:} Increase stride length, so that we slide the input window multiple pixels over a single step $\rightarrow$ Reduces the size of feature maps (manage computational costs) $\rightarrow$ Larger stride focuses on more global patterns rather than small, localized details (reduces risk of overfitting)
+          \item \textbf{Formula to get dimension of feature map:} Output Dimension = [(Input Dimension - Kernel Dimension + 2 * Padding) / Stride] + 1
+          \item \textbf{Pooling layer:} Down-samples feature maps via Max pool, Average pool, Sum pool
+          \item \textbf{Receptive Field:} Area of the input that contributes the output of a neuron in a convolutional layer (gives us an idea of where we are getting our results from as data flows through the layers of the network) $\rightarrow$ Larger receptive field enables network to capture more global features
+          \begin{enumerate}
+            \item Let $r_0=1, j_0=1$
+            \item $r_i=r_{i-1} + (kernel_i - 1)\times j_{i-1}$
+            \item $j_i = j_{i-1} \times stride_i$
+          \end{enumerate}
+        \end{itemize}
+
+        \section{Neural Network on Sequential Data}
+        \subsection{Recurrent Neural Network (RNN)}
+        \begin{itemize}
+          \item \textbf{Sequential Data:} Data where order of elements is essential for capturing patterns \& relationships $\rightarrow$ Each data element depends on previous elements in the sequence (Eg. text, audio, video)
+          \item \textbf{One-hot Encoding:} Transforms each element in the sequence into unique binary vector, where only position representing element is set to 1 \& all other positions set to 0
+          \item \textbf{RNN:}
+          \begin{itemize}
+            \item $x_i$ are inputs, $h_i$ are hidden states, $\hat{y}_i$ are outputs, $h_0$ is set to 0
+            \item $h_t = g^{[h]} \left( \left( W^{[xh]} \right)^\top x_t + \left( W^{[hh]} \right)^\top h_{t-1} \right)$
+            \item $\hat{y}_t = g^{[y]} \left( \left( W^{[hy]} \right)^\top h_t \right)$
+          \end{itemize}
+          \item \textbf{Deep RNN:} RNN with multiple layers
+          \item \textbf{Bidirectional RNN:} 2 unidirectional RNN layers chained together in opposite directions \& acting on same input $\rightarrow$ Concatenate together corresponding outputs of 2 underlying unidirectional RNN layers 
+          \item \textbf{Long Short Term Memory (LSTM)}
+          \begin{itemize}
+            \item Specialised RNN designed to overcome limitations of traditional RNNs, especially their inability to capture long-range dependencies effectively
+            \item \underline{Key Components of LSTM:} (1): Cell State (memory pipeline that runs through entire LSTM), (2): Forget Gate (decides what information from cell state should be discarded), (3): Input Gate (determines what new info should be added to cell state), (4): Output Gate (decides what next hidden state should be)
+            \item \underline{Procedure in LSTM cell:}
+            \begin{enumerate}
+              \item Given $g^{[1]}$ is sigmoid activation function, $g^{[2]}$ is tanh activation function, $z$ is input, $z_i$ is input gate weight, $z_f$ is forget gate weight, $z_o$ is output gate weight
+              \item At input gate: Obtain $a=g^{[1]}(z_i) \times g^{[2]}(z)$
+              \item At forget gate: Obtain $b=c \times g^{[1]}(z_f)$, where $c$ is from memory state
+              \item Update memory state $c \leftarrow a + b$
+              \item At output gate: Obtain $h = g^{[1]}(z_o) \times g^{[2]}(c)$, where $h$ is the next hidden state
+            \end{enumerate}
+            \item \underline{LSTM over multiple cells:} Previous hidden state $h_{t-1}$ $||$ Current input $x_t$ → Multiplied with $W_i$ to produce input $z_t$, and gate weights 
+            \includegraphics[width=0.95\linewidth]{27_lstm.png}
+          \end{itemize}
+          \item \textbf{Types of RNN:} (1): One-to-many (Image captioning), (2): Many-to-one (Sentiment analysis), (3): Many-to-many (Video classification with a label for each frame), (4): Encoder-decoder (Language Translation)
+        \end{itemize}
+
+        \subsection{Self-attention}
+        \begin{itemize}
+          \item \textbf{Motivation:} Unlike RNN which needs to wait for previous time steps, Self-attention model can capture context information without waiting for previous time steps
+          \item \textbf{Procedure:} To calculate $h_i$
+          \includegraphics[width=0.95\linewidth]{28_self_attention.png}
+          \begin{enumerate}
+            \item Multiply $q_i$ (i = 1 in this case) with all $k_i$ → Obtain $\alpha_{ij}$
+            \item Apply soft-max function to all $\alpha_{ij}$ and multiply resulting $\alpha'_{ij}$ with $v_j$
+            \item Sum up all $\alpha'_{ij}v_j$ to obtain $h_i$
+            \item Repeat 1-3 to obtain other $h_i$ values
+          \end{enumerate}
+        \end{itemize}
+
+        \subsection{Issues with Deep Learning}
+        \begin{enumerate}
+          \item \textbf{Overfitting:} Addressed by dropout (randomly set some activations to 0 during neural network training, not the weights), early stopping (so that $J_{val}(w)$ does not increase)
+          \item \textbf{Vanishing/Exploding Gradient:} Vanishing (small gradients multiplied again and again until it reaches almost 0), Exploding (Large gradients multiplied again and again until it overflows) $\rightarrow$ Addressed by non-saturating activation functions (ReLU) or Gradient Clipping (clip gradient within $[min, max]$)
+        \end{enumerate}
+
+        \section{Unsupervised Learning}
+        \subsection{Supervised Learning VS Unsupervised Learning}
+        \begin{itemize}
+          \item \textbf{Supervised Learning:} Given a set of $m$ input-output pairs (training samples), learn to make a prediction
+          \item \textbf{Unsupervised Learning:} Learning happens by experiencing data $\rightarrow$ Given a set of $m$ data points, learn patterns in data
+        \end{itemize}
+
+        \subsection{K-means Clustering}
+        \begin{itemize}
+          \item \textbf{Centroid:} Let points $x^{(i)}$ for $i=1,...,m_1$ be assigned to cluster 1 → For these points, Cluster Centroid is $\mu_1 = \frac{1}{m_1}\sum_{i=1}^{m_1}x^{(i)}$ ( $\mu_1, x^{(i)}$ are vectors)
+          \item \textbf{K-means Algorithm (m data points, K centroids):}
+          \begin{enumerate}
+            \item Randomly initialise $K$ centroids $\mu_1,...,\mu_K$
+            \item Repeat until convergence:
+            \begin{itemize}
+              \item For $i=1,...,m$: $c^{(i)} \leftarrow$ Index of cluster centroid $(\mu_1,...,\mu_K)$ closest to $x^{(i)}$ (Assign data points to centroid)
+              \item For $k=1,...,K:$ $\mu_k \leftarrow$ Centroid of data points $x^{(i)}$ assigned to cluster $k$ (Reposition centroid based on data points)
+            \end{itemize}
+            \item No more changes in centroid positions $\rightarrow$ Converged (Can be shown that each step in algorithm never increases loss function)
+          \end{enumerate}
+          \item \textbf{Local Optima:} Possible for K-means to reach a local optimum where centroids do not move anymore, but loss might be high
+          \item \textbf{K-means Loss Function:} Average distance of each sample to its centroid
+          \item \textbf{K-Medoids:} Pick $K$ initial centroids randomly from points in data $\rightarrow$ Pick data points that is closest to centroids \& use them as centroids
+          \item \textbf{Notes about K-means:}
+          \begin{enumerate}
+            \item Centroids are usually not located at 1 of the data points
+            \item K parameter is chosen by the user
+            \item Multiple restarts of the K-means give different solutions
+          \end{enumerate}
+        \end{itemize}
+
+        \subsection{Hierarchical Clustering}
+        \begin{itemize}
+          \item \textbf{Purpose:} In a situation where we cannot decide on a fixed number of clusters, we want a hierarchy of clusters
+          \item \textbf{Algorithm:}
+          \begin{enumerate}
+            \item Every data point is in a cluster
+            \item Loop (until all points are in 1 cluster): Find a pair of cluster that “is nearest”, merge them together (NOTE: We have $N=2^n$ data points → Hierarchical Clustering algorithm produces a sequence of clusterings → Number of clusters in sequence is $N, N-1, ..., 1$ (Basically merge 2 clusters at 1 single time only))
+          \end{enumerate}
+          \item \textbf{Variants (Pick the minimum)}
+          \begin{enumerate}
+            \item \underline{Single Linkage:} Distance between closest elements in 2 clusters
+            \item \underline{Complete Linkage:} Distance between furthest elements in 2 clusters
+            \item \underline{Average Linkage:} Average of distances of all pairs in 2 clusters
+            \item \underline{Centroid Method:} Distance between centroids of 2 clusters
+          \end{enumerate}
+          \item \textbf{Analysis:} It does not require number of clusters to be pre-defined, handles noise well, works well with non-linearly separable data, can be computationally expensive for large data sets ($O(n^3)$ to merge every cluster, where $O(n^2)$ to calculate distance for every pair \& $O(n)$ to find nearest pair) 
+        \end{itemize}
+
+        \subsection{Dimensionality Reduction}
+        \begin{itemize}
+          \item \textbf{Overview:} Many ML problems have data with high dimensional features → Number of samples to learn a hypothesis class increases exponentially with the number of features
+          \begin{enumerate}
+            \item \underline{Reduction:} Change basis of vector remove dependence between components, Remove non-important components that do not cause variations in data
+            \item \underline{Reconstruction:} Add non-important components back, Restore basis
+          \end{enumerate}
+          \item \textbf{Singular Value Decomposition (SVD):} Take without loss of generality $n > m$, for any $n \times m$ rectangular real-valued matrix $X$, there exists a factorisation $X = U\sum V^T$
+          \includegraphics[width=0.95\linewidth]{29_SVD.png}
+          \begin{enumerate}
+            \item $U$ is $n \times m$ and has $m$ orthonormal columns
+            \item $\sum$ is $m \times m$ and is diagonal with $\sigma_j \geq 0$ ordered from largest to smallest
+            \item $V$ is $m \times m$ and has $m$ orthonormal columns and rows
+          \end{enumerate}
+          \item \textbf{Dimensionality Reduction via SVD:} Instead of $m$ singular values, we set all singular values except the first $r$ to 0 → Resulting matrix is the “best” approximation with new basis size of $r$ to the original matrix \\ Transforms from $n \times m = n \times m, m \times m, m \times m$ to $n \times m = n \times r, r \times r, r \times m$, where $r < m$
+          \includegraphics[width=0.95\linewidth]{30_dim_red_svd.png}
+          \item \textbf{Reduction \& Reconstruction via SVD:} 
+          \begin{enumerate}
+            \item \underline{Data Matrix ($n \times m$):} $X = U \sum V^T \approx \tilde{U}\tilde{\sum}\tilde{V}^T$
+            \item \underline{Reduced Data ($r \times m$):} $Z = \tilde{U}^TX$
+            \item \underline{Reconstructed Data ($n \times m$):} $\tilde{X} = \tilde{U}Z$
+          \end{enumerate}
+          \item \textbf{r-SVD}: defines an encoder-decoder structure for reduction and reconstruction of high-dimensional data
+          \item \textbf{Principal Component Analysis (PCA):} Captures components that max the statistical variations of the data
+          \begin{enumerate}
+            \item Given the data matrix $X=(x^{(1)},...,x^{(m)})$, where $x^{(i)}$ is the $i^{th}$ row of $X$
+            \item Compute mean over samples: $\overline{x} = \frac{1}{m}\sum_{i=1}^m x^{(i)}$
+            \item Compute mean-centred data: $\hat{x}^{(i)}= x^{(i)} - \overline{x}$
+            \item Define data matrix $\widehat{X}=(\hat{x}^{(1)},...,\hat{x}^{(m)})$
+            \item Create covariance matrix of data: $Cov(X)= \frac{1}{m}\widehat{X}\widehat{X}^T$
+            \item Compute SVD on $Cov(X)$ to obtain the $U$ matrix
+            \item Reduce to $r$ components to obtain $\widetilde{U}$ (choose minimum $r$ s.t. $\frac{\sum_{i=1}^r \sigma_i^2}{\sum_{i=1}^m \sigma_i^2} \geq 0.99$, where at least 99\% of variance in data is retained)
+          \end{enumerate}
+        \end{itemize}
   \end{multicols*}
   \hrulefill
 % \\\begin{multicols}{3}
