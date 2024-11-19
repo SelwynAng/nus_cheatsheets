@@ -412,7 +412,7 @@
     \subsection{Conditional Probability and Independence}
     \begin{itemize}
       \item \textbf{Conditional Probability:} $P(E|F) = \frac{P(E \cap F)}{P(F)}$
-      \item \textbf{Prosecutor Fallacy:} Mistake of confusing $P(A|B)$ as $P(B|A)$
+      \item \textbf{Prosecutor Fallacy:} Mistake of confusing $P(A|B)$ as $P(B|A)$ (Unless $P(A)$ == $P(B)$)
       \item \textbf{Independence:} $A$ and $B$ are independent $\rightarrow P(A) = P(A|B) == P(A) * P(B) = P(A \cap B)$ ($A$ and $B$ are independent events whenever $A$ and $B$ are not associated with each other)
       \item \textbf{Conditionally Independence:} $A$ and $B$ are conditionally independent given an event $C$ if $P(A \cap B|C) = P(A|C) * P(B|C)$
     \end{itemize}
@@ -468,6 +468,33 @@
       \end{itemize}
       \item \textbf{Hypothesis test for population proportion/mean:} $H_0$: population parameter = null value, $H_1$: population parameter $<$ null value or $H_1$: population parameter $>$ null value
       \item \textbf{Hypothesis test for association:} $H_0$: No association, $H_1$: There is an association
+    \end{itemize}
+
+    \section{End-of-chapter Questions Pointers:}
+    \subsection{Chapter 1}
+    \begin{itemize}
+      \item Control group can simply be not receiving treatment, receiving a placebo, or receiving an existing treatment (with known success rate)
+      \item Observational studies generally have control groups (subjects are self-assigned to different treatment \& control groups)
+    \end{itemize}
+
+    \subsection{Chapter 2}
+    \begin{itemize}
+      \item Given $Rate(Male) = 0.4, Rate(Male|MilkTea)=0.6, Rate(Male|FruitTea)=0.3$, $Rate(Male)$ is closer to $Rate(Male|FruitTea) \rightarrow$ Closer $Rate(FruitTea)$ is to 100\%
+      \item Since $Rate(Email)=0.45, Rate(Email|Response)=0.5, Rate(Email|Non-response)=0.4$, then $Rate(Response)=0.5$
+    \end{itemize}
+
+    \subsection{Chapter 3}
+    \begin{itemize}
+      \item Associations are not necessarily transitive
+      \item Given that correlation coefficients for males and females is positive each, it is possible for correlation coefficient for both combined is negative
+      \item Predicted value based on regression line is NOT equal to actual/exact value
+    \end{itemize}
+
+    \subsection{Chapter 4}
+    \begin{itemize}
+      \item By the interpretation of confidence intervals via repeated sampling, we conclude that about 95\% of the samples will contain the population parameter within their respective confidence intervals.
+      \item Any confidence interval constructed from any sample, regardless of the significance level, may or may not contain the population parameter
+      \item Hypothesis tests regarding statements about the population should be conducted on probability-based samples only (not census)
     \end{itemize}
 \end{multicols*}
 \end{document}
