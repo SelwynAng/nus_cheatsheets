@@ -1,0 +1,138 @@
+\documentclass[landscape]{article}
+\usepackage[a4paper,margin=3mm,landscape]{geometry}
+\usepackage[scaled=0.92]{helvet}
+\usepackage{multicol, multirow}
+\usepackage{makecell}
+\usepackage{array} 
+\usepackage[table]{xcolor}
+\usepackage{enumitem} 
+\usepackage{amssymb}
+\usepackage{graphicx}
+\setlist{nosep}
+
+\graphicspath{{./images/}}
+
+\pdfinfo{
+    /Title (CS3219 Cheatsheet.pdf)
+    /Creator (TeX)
+    /Producer (pdfTeX 1.40.0)
+    /Author (Selwyn Ang)
+    /Subject (CS3219)
+    /Keywords (CS3219, Cheatsheet, NUS, Software Engineering Principles and Patterns) 
+}
+
+% Turn off header and footer
+\pagestyle{empty}
+
+
+\makeatletter
+\DeclareRobustCommand\smaller{\@setfontsize\smaller{6pt}{6.5pt}}
+\makeatother
+
+% redefine section commands to use less space
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{0mm}%
+  {-0.1ex plus -0.1ex minus -0.1ex}%
+  {0.1ex plus .1ex minus 0.1ex}%
+{\normalfont\small\bfseries}}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{0mm}%
+  {-0.1ex plus -0.1ex minus -0.1ex}%
+  {0.1ex plus .1ex minus 0.1ex}%
+{\normalfont\scriptsize\bfseries}}
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{0mm}%
+  {-0.1ex plus -0.1ex minus -0.1ex}%
+  {0.1ex plus .1ex minus 0.1ex}%
+{\normalfont\smaller\bfseries}}%
+\makeatother
+
+
+
+\renewcommand{\familydefault}{\sfdefault}
+\renewcommand\rmdefault{\sfdefault}
+%  makes nested numbering (e.g. 1.1.1, 1.1.2, etc)
+\renewcommand{\labelenumii}{\theenumii}
+\renewcommand{\theenumii}{\theenumi.\arabic{enumii}.}
+\renewcommand\labelitemii{•}
+\renewcommand\labelitemiii{•}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt plus 0.5ex}
+\setlength{\columnsep}{0.2cm}
+%% adjust spacing for all itemize/enumerate
+\setlength{\leftmargini}{0.5cm}
+\setlength{\leftmarginii}{0.5cm}
+\setlist[itemize,1]{leftmargin=2mm,labelindent=1mm,labelsep=1mm}
+\setlist[itemize,2]{leftmargin=2mm,labelindent=1mm,labelsep=1mm}
+\setlist[itemize,3]{leftmargin=2mm,labelindent=1mm,labelsep=1mm}
+\setlist[enumerate,1]{leftmargin=2mm,labelindent=1mm,labelsep=1mm}
+\setlist[enumerate,2]{leftmargin=2mm,labelindent=1mm,labelsep=1mm}
+\setlist[enumerate,3]{leftmargin=2mm,labelindent=1mm,labelsep=1mm}
+
+\input{./commands/style-helpers.tex}
+\input{./commands/code.tex}
+
+
+% --------------------------------------------------------
+
+\begin{document}
+\raggedright
+\tiny
+\begin{multicols*}{5}
+    \setlength{\columnseprule}{0.25pt}
+
+    \begin{tightcenter}
+        \fbox{%
+          \parbox{0.8\linewidth}{\centering \textcolor{black}{
+              {\Large\textbf{CS3219}}
+            \\ \normalsize{AY24/25 SEM 1}}
+            \\ {\footnotesize \textcolor{gray}{github/SelwynAng}}
+          }%
+        }
+    \end{tightcenter}
+    
+    \section{Software Applications, Deployment \& Development Processes}
+    \subsection{Cloud Computing}
+    \begin{itemize}
+      \item Software infrastructure hosted on an external data center with services delivered over the internet
+      \item \underline{Different models}
+      \begin{enumerate}
+        \item \textbf{On-site:} User manages applications, data, runtime, middleware, OS, virtualisation, servers, storage, networking
+        \item \textbf{IaaS:} User manages applications, data, runtime, middleware, OS $|$ service provider manages the rest
+        \item \textbf{PaaS:} User manages applications, data $|$ service provider manages the rest
+        \item \textbf{SasS:} Service provider manages everything
+      \end{enumerate}
+      \item Cloud native is the software approach of building, deploying and managing modern applications in cloud computing environments
+    \end{itemize}
+
+    \subsection{Deployment (Software Delivery)}
+    \begin{itemize}
+      \item Deployment comprises activities that make the software available for use after development (process between software acquisition and execution)
+      \item \textbf{Deployment Issues:} Integration of the internet and related advances (Portability), Large-scale content delivery (Availability, Performance), Heterogeneous platforms (Interoperability), Dependency and change management (Maintainability), Coordination and communication among components (Performance), Security
+      \item \textbf{Deployment Mechanisms:}
+      \begin{enumerate}
+        \item \underline{Bare metal:} (+): Complete control, physical isolation $|$ (-): Wasted hardware resources, cost, scalability issues
+        \item \underline{Virtual machine:} (+): Improved resource utilization, flexible, scalable $|$ (-): Vulnerable to side-channel attacks, noisy neighbor problem
+        \item \underline{Container:} (+): Lighter than VM, write once run anywhere, granular control $|$ (-): Not suitable for all apps, not suitable for performance-critical applications
+      \end{enumerate}
+      \item \textbf{Container VS Orchestrator VS Serverless:}
+      \begin{itemize}
+        \item \underline{Container:} Provide the platform for building \& distributing services
+        \item \underline{Orchestrator:} Separate software that integrate \& coordinate many parts, scale up/down deployment, provide fault tolerance, provide communication among containers
+        \item \underline{Serverless:} Cloud provider dynamically manages the allocation and provisioning of servers (used for small, stateless, event-driven workloads, e.g., processing an image upload, API endpoints)
+      \end{itemize}
+    \end{itemize}
+
+    \subsection{Software Development Process:}
+    \begin{itemize}
+      \item Use waterfall model when requirements are well-understood, fixed, and effort predictable $|$ Use iterative development for fuzzy and evolving requirements
+      \item \textbf{CI/CD Pipeline:}
+      \begin{itemize}
+        \item \underline{Continuous Integration:} Development practice that requires developers to integrate code into shared repo several times a day $\rightarrow$ Each check-in is then verified via automated build
+        \item \underline{Continuous Delivery:} Ensuring that every good build is potentially ready for production release (Manual deployment to production)
+        \item \underline{Continuous Deployment:} Automating release of a good build to production environment (Auto deployment to production)
+      \end{itemize}
+      \item \textbf{DevOps:} Blends software development \& operations staff and tools $\rightarrow$ Reduce time between committing change to system and the change being placed into production while ensuring high quality
+    \end{itemize}
+
+\end{multicols*}
+\end{document}
