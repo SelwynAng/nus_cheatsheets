@@ -180,14 +180,14 @@
         \item \underline{Completeness:} Does it return solution if it exists?
         \item \underline{Optimality:} Does it always find least cost solution?
       \end{enumerate}
-      \begin{multicols}{2}
-        \textbf{Tree Search:} 
-        \includegraphics[width=0.75\linewidth]{2_tree_search.png}
-        \\
-        \columnbreak
-        \textbf{Graph Search:}
-        \includegraphics[width=0.75\linewidth]{3_graph_search.png}
-      \end{multicols}
+      % \begin{multicols}{2}
+      %   \textbf{Tree Search:} 
+      %   \includegraphics[width=0.75\linewidth]{2_tree_search.png}
+      %   \\
+      %   \columnbreak
+      %   \textbf{Graph Search:}
+      %   \includegraphics[width=0.75\linewidth]{3_graph_search.png}
+      % \end{multicols}
       \item \textbf{Checking of Goal State:}
       \begin{itemize}
         \item New state is checked for goal state before new states are PUSHED to frontier $\rightarrow$ Expand less states, may skip states with less cost
@@ -234,6 +234,7 @@
           \item Problem with fewer restrictions on actions is called a relaxed problem
           \item Cost of an optimal soln to a relaxed problem is an admissible $h$ for original problem
         \end{itemize}
+        \item Consistent heuristic is admissible, Non-admissible heuristic is not consistent
       \end{itemize}
     \end{itemize}
 
@@ -349,6 +350,7 @@
         \item \underline{Information Gain} (Entropy of curr. node - Total Entropy of children nodes): $IG(A) = I(\frac{p}{p+n}, \frac{n}{p+n}) - remainder(A)$ \\
         remainder(A) = $\sum_{i=1}^{v} \frac{p_i+n_i}{p+n} I(\frac{p_i}{p_i+n_i}, \frac{n_i}{p_i+n_i})$, where examples are split into $v$ subsets by attribute $A$
       \end{itemize}
+      \includegraphics[width=1.0\linewidth]{14_entropy_table.jpg}
       \item \textbf{Dealing with continuous valued attributes:} Define a discrete valued input attribute to partition values into discrete set of intervals
       \item \textbf{Dealing with missing values:} Assign most common value of attribute, assign probability to each value and sample, drop attribute, drop rows
       \item \textbf{Overfitting:} Decision Tree is perfect on training data, but worse on test data
@@ -551,7 +553,7 @@
           \item \textbf{Logistic Regression with Regularisation}
           \begin{itemize}
             \item \underline{Cost Function:} $J(w) = -\frac{1}{m} \sum_{i=1}^{m} [ y^{(i)} \log h_w(x^{(i)}) +\left( 1 - y^{(i)} \right) \log \left( 1 - h_w(x^{(i)}) \right)] + \frac{\lambda}{2m} \sum_{j=1}^{n} w_j^2$
-            \item \underline{Gradient Descent:} $w_j \leftarrow w_j - \gamma \frac{1}{m} \sum_{i=1}^{m} \left( h_w(x^{(i)}) - y^{(i)} \right) x_n^{(i)} - \gamma \frac{\lambda}{m} w_j$
+            \item \underline{Gradient Descent:} $w_j \leftarrow w_j - \gamma \frac{1}{m} \sum_{i=1}^{m} \left( h_w(x^{(i)}) - y^{(i)} \right) x_j^{(i)} - \gamma \frac{\lambda}{m} w_j$
           \end{itemize}
         \end{itemize}
 
