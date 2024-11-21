@@ -134,5 +134,170 @@
       \item \textbf{DevOps:} Blends software development \& operations staff and tools $\rightarrow$ Reduce time between committing change to system and the change being placed into production while ensuring high quality
     \end{itemize}
 
+    \section{Specifying Software Requirements}
+    \subsection{Requirements}
+    \begin{itemize}
+      \item \textbf{Definition:} Capability needed by a user, Capability that must be met or possessed by a system, Documented representation of a condition or capability, Specification what should be implemented
+      \item \textbf{User centric Requirement:} Eg. As a user, I can upload a 20 mb image file into the system so that I can retain the original image without loss of quality
+      \item \textbf{Product centric Requirement:} Eg. The system will support a range of graphic file formats up to 20 mb in size
+      \item \textbf{Requirement Development Phases:} Elicitation $\rightarrow$ Analysis $\rightarrow$ Specification $\rightarrow$ Validation
+      \item \textbf{Outcomes of Requirements Development Process:} (1): Software Requirements Specification (SRS), (2): Rights, responsibilities \& agreements
+      \item \textbf{SRS VS Product Backlog:} Product Backlog (Repo of work to be done, facilitates prioritization of work \& planning), SRS (in-depth description of software product to be developed, direct/indirect requirements of system, only tells what work is to be done)
+      \item \textbf{Validation:} Whether you have written the right requirements
+      \item \textbf{Verification:} Whether you have written the requirements right
+    \end{itemize}
+
+    \subsection{Types of Requirements}
+    \begin{enumerate}
+      \item \textbf{Business:} Describe why organization is implementing the system
+      \item \textbf{User:} Describe goals or tasks user must be able to perform with the product
+      \item \textbf{System:} Describes connections between your system and outside world
+      \item \textbf{Functional:} Specifies something the system should do
+      \item \textbf{Non-functional/Quality:} Describes something not directly related to system functionality, but how well the system works
+      \item \textbf{Constraints:} States a limitation on design or implementation choices
+      \item \textbf{Data}
+    \end{enumerate}
+    NOTE: Business Req to be in Vision and Scope document, User Req to be in User Requirements document, FRs, NFRs, System Req, Constraints to be in SRS
+
+    \subsection{Software Quality Attributes:}
+    \begin{itemize}
+      \item \textbf{External:} Observed when software is executing, impacts UX, develops user's perception of software quality \textit{(Eg. Availability, Performance, Robustness, Safety, Security, Reliability, Integrity, Deployability, Compatibility, Installability, Usability, Interoperability)}
+      \begin{enumerate}
+        \item \underline{Security:} Specifying security features at SRS ensures that acceptance tests include testing for security $|$ About privacy, authentication, integrity
+        \item \underline{Safety:} About whether a system can harm someone or something
+        \item \underline{Performance:} Responsiveness of system, impacts UX, includes response time, throughput, data capacity, dynamic capacity, predictability in real-time systems, latency, behavior in degraded modes or overloaded conditions
+        \item \underline{Availability:} Planned uptime of system ($\frac{Uptime}{Uptime + Downtime}$)
+        \item \underline{Usability:} Measures the effort required to prepare input, operate, and decipher output of software
+      \end{enumerate}
+      \item \textbf{Internal:} Not directly observed when software is executing, perceived by developers/maintainers, encompasses aspects of design that may impact external attributes \textit{(Eg. Efficiency, Scalability, Verifiability, Portability, Maintainability, Testability, Modifiability, Reusability)}
+      \begin{enumerate}
+        \item \underline{Scalability:} Ability of application to accommodate growth in application usage (\textit{Vertical scaling:} increasing capacity of system by adding capability to machines used which is easier to maintain, but causes single point of failure $|$ \textit{Horizontal Scaling:} increasing capacity of system by adding additional machines which increases fault tolerance, but adds costs and complexity)
+      \end{enumerate}
+    \end{itemize}
+
+    \section{High Level Design - Software Architecture}
+    \subsection{Software Architecture}
+    \begin{itemize}
+      \item \textbf{Definition:} Structure of system, which comprise software components, externally visible properties of those components, and the relationships among them
+      \item \textbf{Consists of:} (1): \underline{Component} (element that models an application-specific function, responsibility, requirement, task, process), (2): \underline{Configuration} (Topology/Structure), (3): \underline{Connector} (Element that models interactions among components for purpose of transfer of control/data)
+    \end{itemize}
+
+    \subsection{Common Definitions}
+    \begin{enumerate}
+      \item \textbf{Control Flow:} Reasoning is on computation order, how the focus of control moves throughout the execution
+      \item \textbf{Data Flow:} Reasoning is on data availability, transformation, latency, how data moves through collection of computations
+      \item \textbf{Call and Return:} Control moves from 1 component to another and back, can be hierarchical/non-hierarchical
+      \item \textbf{Message:} Data sent to a specific address (each component has a unique address other components can send messages to)
+      \item \textbf{Event:} Data emitted from a component for anyone listening to consume (message sent to publishing infrastructure where consumers may later retrieve, is immutable, ordered in sequence of creation)
+    \end{enumerate}
+
+    \subsection{Decomposition \& Packaging}
+    \begin{itemize}
+      \item \textbf{Slicing:} (1): \underline{Horizontal Slicing:} designing by layers, (2): \underline{Vertical Slicing:} designing by feature
+      \item \textbf{Principle of Modularity:} Modularization results in shorter development time, better flexibility, better comprehensibility $|$ Decomposing big chunk into smaller chunks with well-defined APIs
+      \item \textbf{Types of Cohesion:} Functional, Layer, Communicational, Sequential, Procedural, Temporal, Utility
+      \item \textbf{Types of Coupling:} Content, Global variables, Control, Data, External, Temporal, Inclusion/import
+    \end{itemize}
+
+    \subsection{Architectural Styles}
+    \begin{itemize}
+      \item \textbf{How code is divided:}
+      \begin{enumerate}
+        \item \underline{Technical Partitioning:} Focus on separation of concerns (Eg. Presentation, Services, Persistence)
+        \item \underline{Domain Partitioning:} Aligned with the domain (Eg. Customer, Shipping, Payment)
+      \end{enumerate}
+      \item \textbf{How is it deployed:}
+      \begin{enumerate}
+        \item \underline{Monolithic:} Deploy all logical components that make up the application as 1 unit, application runs as 1 process
+        \item \underline{Distributed:} Application consists of independent logical components, logical components run as individual processes, communicate over network
+      \end{enumerate}
+      \item \textbf{Types:}
+      \begin{enumerate}
+        \item \underline{Layered (Technical \& Monolith):}
+        \begin{itemize}
+          \item Lower level layers provides functionality for higher level layers
+          \item \textit{Open layer architecture:} 1 layer can talk to another layer, which can be layers away
+          \item \textit{Close layer architecture:} 1 layer can only talk to a neighboring layer
+          \item More layers result in scalability by allowing each layer to run in different server, but communication becomes expensive
+          \item Less layers result in performance optimization, no context-switching overheads, but difficult to modify, impractical
+        \end{itemize} 
+        \item \underline{Modular Monolith (Domain \& Monolith):} Separation by domain (business) concern, reduces coupling (Eg. Order domain, recipe domain, where each domain consists of presentation, logic \& persistence layers)
+        \item \underline{Event-driven (Technical \& Distributed):}
+        \item \underline{Microservices (Domain \& Distributed):}
+        \item \underline{Pipe \& Filter:}
+        \begin{itemize}
+          \item Data enters system and flows through components one at a time until data is assigned to some final destination (Data Sink)
+          \item Components consist of \textit{Filters, Data Source, Data Sink}, where each component can read and produce
+          \item \textit{Filter} transforms input streams, computes incrementally $\rightarrow$ output begins before input is consumed, is independent, shares no state with other filters
+          \item \textit{Pipe} transmits output of 1 filter to input of another filter
+          \item \textit{Purpose:} Divides the app's task into several self-contained data process steps \& connect these steps to data processing pipeline via intermediate data buffers $\rightarrow$ Data flows in streams (good for image, audio, video, or batch data processing with limited user interaction)
+        \end{itemize}
+        \item \underline{Model-View-Controller}
+        \begin{itemize}
+          \item View (widgets in UI, buttons, text boxes), Controller (coordinates btw. Model and View), Model (business logic)
+          \item \textit{Benefits:} Separation of concerns, Facilitates extensibility, Restricted communication reduces complexity \& side effects, Better testability (easy to mock components), Frameworks provide MVC solution
+          \item \textit{Web MVC:} Controller (handles user HTTP requests, select model, prepare view), View (renders HTTP response), Model (business logic \& persistence)
+          \item \textit{Single Page Applications (SPA):} Send query and retrieve data in background without refreshing webpage
+        \end{itemize}
+      \end{enumerate}
+    \end{itemize}
+
+    \subsection{REST Architecture} (Not an architecture by itself)
+    \begin{itemize}
+      \item \textbf{Definition:} Defines constraints for transferring, accessing, and manipulating textual data representations in a stateless manner across a network of systems $\rightarrow$ Provide uniform interoperability between different applications on the internet (HTTP to request access and use data)
+      \item \textbf{Constraints:}
+      \begin{enumerate}
+        \item \underline{Client-Server:} REST apps should have client-server architecture for separation of concerns $\rightarrow$ Improve portability of UI \& scalability of server components
+        \item \underline{Stateless:} No client state (session) maintained on server $\rightarrow$ Server is bound by no. of concurrent requests \& not the no. of clients interacting $\rightarrow$ Improve scalability, reliability, monitoring
+        \item \underline{Cache-able:} Response from server should include if data is cache-able or not $\rightarrow$ Client returns data from its cache in response to subsequent requests $\rightarrow$ Improves network efficiency, but client can potentially receive stale data
+        \item \underline{Layered System:} App must be organized as a layered system $\rightarrow$ Improved overall system complexity by restricting complexity to individual layers, intermediary servers may improve system availability \& performance, provide data transformation \& filtering 
+        \item \underline{Uniform Interface:} Uniform way of interacting with a given server irrespective of device/application, exploits HTTP/HTTPS requests \& responses
+        \begin{itemize}
+          \item \textit{Resource Identifier:} Stable, global, unique method to identify resources
+          \item \textit{Resource Representation:} Components perform operations on resource representations
+        \end{itemize}
+        \item \underline{Code-on-demand:} Allow client functionality to be extended by downloading executable code, simplifies client from having to pre-implement all functionality, allows extensibility
+      \end{enumerate}
+      \item \textbf{Advantages of REST:} Systems are less tightly coupled, provides scalability, usability, accessibility
+      \item \textbf{Disadvantages of REST:} Being stateless decrease network performance by increasing repetitive data sent in series of queries $|$  Using URI degrade efficiency since info is transferred in standardized form rather than one which is specific to app's needs
+    \end{itemize}
+
+    \section{Microservices Architecture}
+    \subsection{Microservices Architectural Style}
+    \begin{enumerate}
+      \item A single application as a suite of small services
+      \item Each microservice offers a well-defined business capability (Features in microservice should be highly related)
+      \item Each microservice is defined to be developed \& deployed independently (Services do not need to share any of their code or implementation with other services $\rightarrow$ minimal dependency on each other, services are owned by different teams)
+      \item Microservices communicate with each other through well-defined mechanisms (Synchronous: RESTful APIs, gRPC, GraphQL, Asynchronous: Event-based publish \& subscribe)
+    \end{enumerate}
+    
+    \subsection{Domain Driven Design}
+    \begin{itemize}
+      \item Complex system is fundamentally a collection of multiple domain models (sub-domains)
+      \item\textbf{Domain:} Problem space that a business occupies and provides solution to
+      \item \textbf{Sub-domain:} Component of main domain, belongs to problem space
+      \item \textbf{Bounded Context:} High cohesive boundary relevant to the sub-domain $\rightarrow$ Belongs to solution space
+      \item \textbf{Types of Collaborations between different Bounded Contexts (BC):}
+      \begin{enumerate}
+        \item \underline{Shared Kernel:} 2 contexts are developed independently, but they end up overlapping some subset of each other's domain
+        \item \underline{Upstream-Downstream:} 2 contexts are in provider (upstream) - consumer (downstream) relationship
+        \begin{itemize}
+          \item \textit{Supplier-Customer Relationship:} Supplier is the BC that provides a service, functionality or data to another BC, while Customer is the BC that consumes the functionality/data (Eg. Order Context supplies order data, Recommendation Context fetches the order data)
+          \item \textit{Conformist Relationship:} 1 BC (the conformist) fully adopts the model of another BC without trying to impose its own requirements or interpretations (Eg. Payment service must align entirely with the bank's API and data structures, regardless of whether it fits the payment service's internal domain model or not)
+        \end{itemize}
+      \end{enumerate}
+      \item \textbf{Aggregate:} A cluster of related objects that we treat as a single unit for purpose of data changes (Has \textit{transactional boundary}, which means any changes to aggregate will either all succeed or none will succeed $|$ Has \textit{consistency boundary}, which means all processes or objects external to aggregate are only allowed to read aggregate's state \& its state can only be modified by executing corresponding methods of aggregate's public interface)
+      \item \textbf{Aggregate Root:} Parent entity of the aggregate $\rightarrow$ designated as aggregate's public interface
+    \end{itemize}
+
+    \subsection{Event Storming}
+    \begin{itemize}
+      \item \underline{Command} causes \underline{Events} (Eg. User/external system issues a command)
+      \item We treat \underline{Aggregate} as a unit for the purpose data changes $\rightarrow$ Eg. Order Processing Aggregate consists of Confirm order Command \& Order confirmed Event
+      \item \underline{Policy:} WHEN event THEN command (basically links 2 aggregates together, Eg. When payment card is submitted event happens, then execute confirm order command)
+      \item A BC solves 1 problem \& can contain more than 1 aggregate
+      \item 2 different aggregates can be created to solve 1 problem delimited by 1 BC
+    \end{itemize}
+    \includegraphics[width=0.75\linewidth]{2_event_storming.png}
 \end{multicols*}
 \end{document}
