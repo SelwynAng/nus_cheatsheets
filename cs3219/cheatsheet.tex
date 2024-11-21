@@ -299,5 +299,114 @@
       \item 2 different aggregates can be created to solve 1 problem delimited by 1 BC
     \end{itemize}
     \includegraphics[width=0.75\linewidth]{2_event_storming.png}
+
+    \section{Data Patterns in Microservice Architecture}
+    \subsection{Database-server-per-service Pattern}
+    \begin{itemize}
+      \item Each service has its own database server
+      \item (+): Loose coupling, allow scaling services at database level, easier to replace underlying database technology to something appropriate with each service
+      \item (-): Hundreds of microservices $\rightarrow$ Different kinds of database $\rightarrow$ Explosion of no. of DB clusters $\rightarrow$ Expensive, unmanageable
+      \item However, Data independence $\neq$ Each microservice to own cluster of DB  $\rightarrow$ Microservices do not modify the same data by having:
+      \begin{enumerate}
+        \item \underline{Private-tables-per-service:} Each service owns a set of tables that must only be accessed by that service
+        \item \underline{Schema-per-service:} Each service has a database schema that is private to that service
+      \end{enumerate}
+    \end{itemize}
+
+    \subsection{Data Delegate Pattern}
+    \begin{itemize}
+      \item Multiple services require data from a single table $\rightarrow$ Not loosely coupled
+      \item Can be solved via Data Delegate Pattern (hide shared data behind a delegate service) $\rightarrow$ Authoritative service for all things related to the other services which require common data $\rightarrow$ Stop accessing database directly from other services
+    \end{itemize}
+
+    \subsection{Data Lake Pattern}
+    \begin{itemize}
+      \item Data lake is a read-only, query-able data sink (shared space containing copy of data from all concerned microservices) $\rightarrow$ Owner microservices just stream relevant data into data lake
+    \end{itemize}
+
+    \subsection{Sagas Pattern}
+    \begin{itemize}
+      \item Every step of a transaction defines a compensating action $\rightarrow$ Compensating action executes if we need to roll back the transaction due to later failure $\rightarrow$ Compensating action is registered on a routing slip \& passed along to next step $\rightarrow$ If 1 of the later steps fails, it kicks off execution of all compensating actions on routing slip, "undo" modifications \& bring system to reasonably compensated state 
+      \item Sagas $\neq$ ACID transactions $\rightarrow$ Sagas does not promise that when a distributed transaction is rolled back, system will necessarily get back to initial state (Eg. Initial state has 0 notifications, but if we cancel reservation, final state has 2 notifications)
+      \item Sequence of events does matter \& should be constructed carefully $\rightarrow$ Better to move steps that are harder to compensate for towards end of transaction (Eg. Move notification to end of process, would save from having to send a lot of correction messages)
+    \end{itemize}
+
+    \subsection{Event Sourcing}
+    \begin{itemize}
+      \item \textbf{Definition:} Is about storing facts and any time you have state change $\rightarrow$ For each modification of state, log (store) the event representing the result of the action (Instead of focusing on persisting the state of the app, you should persist the stream of events which got it into its current state)
+      \item \textbf{Event:} Source of truth, \textbf{System State:} Series of consecutive events
+      \item \textbf{Event Sourcing VS Relational Modelling:}
+      \begin{itemize}
+        \item \underline{Relational Modelling:} Store a state of something (Eg. Current price of economy seat on a flight)
+        \item \underline{Event Sourcing:} Store facts, incremental changes of the data $\rightarrow$ Current state of system is a derivative, a value that is calculated from the events
+      \end{itemize}
+      \includegraphics[width=0.85\linewidth]{3_event_sourcing_vs_relational_modelling.png}
+      \item \textbf{Event:} 
+      \begin{itemize}
+        \item Has 3 parts (unique id, event type, data)
+        \item Events acts as data that describes some action/fact, Events are notifications of some change in state/data, Events are recordings of what happened
+        \item \underline{Projection} function takes current state and a new event to calculate new state $\rightarrow$ Take rolling snapshots (saving projections) to speed up calculation of new state from the last snapshot
+      \end{itemize}
+      \item \textbf{Event Store:} Database storage that can reliably store a sequence of data entries (Store new events, assign correct sequence, notify event subscribers)
+    \end{itemize}
+
+    \subsection{Command Query Responsibility Segregation (CQRS)}
+    \begin{itemize}
+      \item The way we query \& the way we store data do not have to be the same $\rightarrow$ Separate write path from read path (Should something go wrong, internal state of database can be recovered from the log \& writes and reads can be optimized independently)
+      \item \textbf{Commands:} Operations that change application state \& return no data (have side effects within application)
+      \item \textbf{Queries:} Operations that return data but do not change application state 
+      \item Model used for commands will differ from model used for queries (Data can be stored in different tables/databases for command and query models)
+    \end{itemize}
+
+    \section{More Patterns in Microservices Architecture}
+    \subsection{Service Instance per Host Pattern}
+    \begin{itemize}
+      \item Run each service instance in isolation on its own host
+      \item \textbf{Service Instance per VM:} Package each service as a VM image $\rightarrow$ Each service instance is a VM
+      \item \textbf{Service Instance per Container:} Each service instance runs in its own container $\rightarrow$ Container image is a file system image consisting of the applications \& libraries required to run the service
+    \end{itemize}
+
+    \subsection{Immutable Infrastructure \& Infrastructure as Code}
+    \begin{itemize}
+      \item \textbf{Immutable Infrastructure:} Cannot be changed after it is created (updating immutable object requires it to be destroyed and replaced with a new one) $\rightarrow$ Contain behavior and structures that are easier to predict \& reproduce because they do not change
+      \item \textbf{Infrastructure as Code:} All infrastructure must be represented as a set of machine-readable files/code
+    \end{itemize}
+    
+    \subsection{Service Collaboration \& Communication}
+    \begin{itemize}
+      \item \textbf{Service Collaboration:}
+      \begin{enumerate}
+        \item \underline{Orchestration:} Rely on central brain to guide and drive process
+        \item \underline{Choreography:} Inform each part of system of its job, let them work out the details
+      \end{enumerate} 
+      \item \textbf{Service Communication:}
+      \begin{enumerate}
+        \item \underline{Request/Sync Response:} Client makes a request to service \& waits for a response
+        \item \underline{Notification:} Client sends a request to service but no reply is expected or sent (one-way request)
+        \item \underline{Request/Async Response:} Client sends a request to service, which replies asynchronously
+      \end{enumerate}
+    \end{itemize}
+
+    \subsection{API Gateway}
+    \begin{itemize}
+      \item A server that is the single point of entry into the system
+      \item Encapsulates internal system architecture \& provides an API that is tailored to each client
+      \item Have other responsibilities such as authentication, monitoring, load balancing, caching, etc
+    \end{itemize}
+
+    \subsection{Backends for Frontends}
+    \begin{itemize}
+      \item A dedicated backend service is created for each frontend interface (e.g., web, mobile, or other client applications) $\rightarrow$ Allows each frontend to interact with its own backend service, which is tailored to its specific needs
+    \end{itemize}
+
+    \subsection{Service Discovery}
+    \begin{itemize}
+      \item \textbf{Service Discovery:} API Gateway needs to know location (IP address and port) of each microservice with which it communicates
+      \begin{enumerate}
+        \item \underline{Client-side Discovery Pattern:} Client queries a service registry \& determines network locations of available service instances $\rightarrow$ then uses a load-balancing algorithm to select 1 of the available service instances \& makes a request
+        \item \underline{Server-side Discovery Pattern:} Client makes a request to service via load balancer $\rightarrow$ Load balancer queries service registry \& routes each request to an available service instance
+        \item \underline{Service Registry Pattern:} Service instances are registered with service registry (database of services, their instances \& their locations) on startup \& deregistered on shutdown $\rightarrow$ Client of the service and/or routers query the service registry to find available instances of a service
+      \end{enumerate}
+    \end{itemize}
 \end{multicols*}
 \end{document}
