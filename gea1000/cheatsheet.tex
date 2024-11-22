@@ -440,7 +440,7 @@
         \item \underline{Confidence Interval for population proportion:} $p^* \pm z^* * \sqrt{\frac{p^*(1-p^*)}{n}}$, where $p^*$ is sample proportion, $z^*$ is z-value from standard normal distribution, $n$ is sample size
         \item \underline{Confidence Interval for population mean:} $\overline{x} \pm t^* * \frac{s}{\sqrt{n}}$, where $\overline{x}$ is sample mean, $t^*$ is "t-value" from t-distribution, $s$ is sample SD, $n$ is sample size 
         \item \underline{Margin of error:} Directly impacts the width of the confidence interval
-        \item "95\% confident" means that if many simple random samples of the same size are taken, and a confidence interval is constructed for each of them, then about 95\% of the confidence intervals constructed would contain the population parameter
+        \item "95\% confident" means that if many simple random samples of the same size are taken, and a confidence interval is constructed for each of them, then about 95\% of the confidence intervals constructed would contain the population parameter $==$ We are 95\% confident that the population parameter lies within the confidence interval
         \item Either the population parameter is in the interval or is not (Wrong to say there is a 95\% chance that it is in the interval, there is no probabilistic element)
         \item \underline{Properties of Confidence Intervals}
         \begin{enumerate}
@@ -468,6 +468,7 @@
       \end{itemize}
       \item \textbf{Hypothesis test for population proportion/mean:} $H_0$: population parameter = null value, $H_1$: population parameter $<$ null value or $H_1$: population parameter $>$ null value
       \item \textbf{Hypothesis test for association:} $H_0$: No association, $H_1$: There is an association
+      \item Null \& Alternative hypotheses should be mutually exclusive, meaning that they cannot be true simulanteously
     \end{itemize}
 
     \section{End-of-chapter Questions Pointers:}
@@ -487,6 +488,10 @@
     \begin{itemize}
       \item Associations are not necessarily transitive
       \item Given that correlation coefficients for males and females is positive each, it is possible for correlation coefficient for both combined is negative
+      \item If we multiply all the values of X and Y by -1, then the correlation coefficient between X and Y will not change
+      \item If we remove an outlier from the data set, the correlation coefficient might not change (Eg.  If all the (X,Y) points lie on a negatively sloped straight line including the outlier(s), the r value remains at -1 after any outlier is removed)
+      \item If there are only 2 points, the correlation coefficient between X and Y must be 1 or -1
+      \item Adding any number to or subtracting any number from X or/and Y will not change the correlation coefficient between X and Y
       \item Predicted value based on regression line is NOT equal to actual/exact value
     \end{itemize}
 
@@ -494,7 +499,11 @@
     \begin{itemize}
       \item By the interpretation of confidence intervals via repeated sampling, we conclude that about 95\% of the samples will contain the population parameter within their respective confidence intervals.
       \item Any confidence interval constructed from any sample, regardless of the significance level, may or may not contain the population parameter
+      \item Every confidence interval for a population mean constructed using a sample will contain the corresponding sample mean
+      \item We do not describe CIs in terms of chance, but in terms of confidence
       \item Hypothesis tests regarding statements about the population should be conducted on probability-based samples only (not census)
     \end{itemize}
+    \includegraphics[width=1.0\linewidth]{9_question.png}
+    \includegraphics[width=1.0\linewidth]{10_question.png}
 \end{multicols*}
 \end{document}
