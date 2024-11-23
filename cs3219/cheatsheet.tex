@@ -376,8 +376,8 @@
     \begin{itemize}
       \item \textbf{Service Collaboration:}
       \begin{enumerate}
-        \item \underline{Orchestration:} Rely on central brain to guide and drive process
-        \item \underline{Choreography:} Inform each part of system of its job, let them work out the details
+        \item \underline{Orchestration:} Rely on central brain to guide and drive process (Eg. Service A sends instructions to other services directly)
+        \item \underline{Choreography:} Inform each part of system of its job, let them work out the details (Eg. Service A publishes an event that other services subscribe to)
       \end{enumerate} 
       \item \textbf{Service Communication:}
       \begin{enumerate}
@@ -388,17 +388,18 @@
     \end{itemize}
 
     \subsection{Event Driven VS Request-Response Communication}
+    \begin{itemize}
+      \item \textbf{Event-Driven:} Async pattern, Real-time data, Loose coupling between components in the system (No service knows of existence of any other service, and no service owns the entire workflow), Event (something happened), Best for cases where components need to react to changes in state/real-time data processing is needed (Eg. IoT systems, real-time analytics)
+      \item \textbf{Request-Response:} Sync pattern, Introduces latency (if requester waits for response), Tighter coupling since requester needs to know details of responder, Request (do this), Best for cases where client needs specific info (Eg. web APIs, database queries)
+      \item \underline{Real-time data:} Data that is published as it is generated, with no known end of data being published $\rightarrow$ Travelling in streams/queues that are built to handle large volumes of data
+    \end{itemize}
 
     \subsection{API Gateway}
     \begin{itemize}
       \item A server that is the single point of entry into the system
       \item Encapsulates internal system architecture \& provides an API that is tailored to each client
       \item Have other responsibilities such as authentication, monitoring, load balancing, caching, etc
-    \end{itemize}
-
-    \subsection{Backends for Frontends}
-    \begin{itemize}
-      \item A dedicated backend service is created for each frontend interface (e.g., web, mobile, or other client applications) $\rightarrow$ Allows each frontend to interact with its own backend service, which is tailored to its specific needs
+      \item \textbf{Backends for Frontends:} A dedicated backend service is created for each frontend interface (e.g., web, mobile, or other client applications) $\rightarrow$ Allows each frontend to interact with its own backend service, which is tailored to its specific needs
     \end{itemize}
 
     \subsection{Service Discovery}
@@ -409,6 +410,54 @@
         \item \underline{Server-side Discovery Pattern:} Client makes a request to service via load balancer $\rightarrow$ Load balancer queries service registry \& routes each request to an available service instance
         \item \underline{Service Registry Pattern:} Service instances are registered with service registry (database of services, their instances \& their locations) on startup \& deregistered on shutdown $\rightarrow$ Client of the service and/or routers query the service registry to find available instances of a service
       \end{enumerate}
+    \end{itemize}
+
+    \section{Event Driven Architecture}
+    \subsection{Events}
+    \begin{itemize}
+      \item \textbf{Definition of Event:} Way for a software component to let rest of system know that something important has just happened (allow passing of info between components)
+      \item \textbf{Initiating Event:} Originates from an end user \& kicks off a business process
+      \item \textbf{Derived Event:} Internal events generated in response to initiating event
+      \item \textbf{Structure of Event:}
+      \begin{itemize}
+        \item Events are typically represented in key/value format (Key: For ID, routing and aggregation operations on events $|$ Value: Complete details of event)
+        \item \underline{Unkeyed:} Describes a singular statement of fact (Eg. typically used for system-wide notifications or triggers that are consumed by subscribers interested in general behaviors rather than specific entities) $|$ \underline{Entity:} Unique thing and is keyed on the unique ID of that thing $|$ \underline{Keyed:} Contains a key but does not represent entity
+      \end{itemize}
+    \end{itemize}
+
+    \subsection{Asynchronous Communication}
+    \begin{itemize}
+      \item \textbf{Definition:} When software component broadcasts info to other components, it does not wait for response, nor does it care if other components are available or not (Fire-and-forget)
+      \item \textbf{Diagram notation:} Dotted lines for async, Solid lines for sync
+      \item \textbf{Pros (+):} Better responsiveness (less time to get response for a request), Better availability (other components' availability don't matter)
+      \item \textbf{Cons (-):} More complex/fragmented error-handling than sync comms 
+    \end{itemize}
+
+    \subsection{Event Driven Architecture (EDA)}
+    \begin{itemize}
+      \item \textbf{Definition:} Way of designing \& building apps that are based on exchange of events (relies on async comms when sending \& receiving events)
+      \item \textbf{Components in EDA:} (1): \underline{Event Producers (Publishers):} Publish data into streams/queues $|$ \underline{Event Brokers:} Implements an event broker/event bus $|$ \underline{Event Consumers (Subscribers):} Listen for \& consume event data
+      \item \textbf{EDA VS Microservices (MS) Architecture:}
+      \begin{enumerate}
+        \item \underline{Communication \& Performance:} EDA relies on async comms (fast), MS communicates via sync using REST and occasionally async comms (sync comms creates latency)
+        \item \underline{Bounded Contexts \& Data Ownership:} Nice-to-have for EDA, Foundational for MS
+        \item \underline{Event VS Request}: EDA is built on event processing (responding to something that has happened), MS is built on request processing (responding to something that needs to happen)
+      \end{enumerate}
+    \end{itemize}
+
+    \subsection{Event Driven Microservices}
+    \begin{itemize}
+      \item \textbf{Definition:} Microservices communicate by producing \& consuming events (Each event stream has 1 and only 1 producing MS $\rightarrow$ This MS is the owner of each event produced to that stream)
+      \item \textbf{Event Data:} Serves as data storage \& communication mechanism between services
+      \item \textbf{Event Broker:} 
+      \begin{itemize}
+        \item Receives events, holds/stores events, and provides events for consumption
+        \item Event brokers use immutable, append-only event log $\rightarrow$ Preserves state of event ordering, where events are given auto incrementing index ID
+        \item Consumer service "seeks" to index ID of last message it read (offset), then scans sequentially, and reads messages in order while recording its new index ID in the partition
+        \item \underline{Traits of Event Broker:} Immutability (can alter previous data only by publishing new event with updated data), Ordering (data is served to consumers in same order it was published), Indexing (events are assigned indexes), Partitioning (event streams are partitioned into sub-streams), Infinite retention (Events can be retained for infinite time), Replayability (Any consumer can read whatever data it requires)
+        \item \underline{Event Partitions:} Producers write events over many partitions, each partition is an append-only event log, load-balanced consumers share the partitions between them
+        \item \underline{Scalability:} Reading \& writing can be done in parallel with events in partitions $\rightarrow$ Scaling is straightforward (with Kafka, hitting scalability wall is impossible)
+      \end{itemize}
     \end{itemize}
 \end{multicols*}
 \end{document}
