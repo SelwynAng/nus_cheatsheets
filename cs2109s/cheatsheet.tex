@@ -419,7 +419,7 @@
             \item $h_w(x^{(i)}) == \hat{y}^{(i)}$
             \item $y^{(i)}$ is actual $y$ value for the ith training example
           \end{enumerate}
-          \item \textbf{Partial Derivative:} $\frac{\partial J_{MSE}(w)}{\partial w_1} = \frac{1}{m}\sum^m_{i=1}(w_1x^{(i)}-y^{(i)})x^{(i)}$ (when we differentiate $J_{MSE}(w)$ wrt. particiular weight, i.e. $w_1$)
+          \item \textbf{Partial Derivative:} $\frac{\partial J_{MSE}(w)}{\partial w_1} = \frac{1}{m}\sum^m_{i=1}(w_1x^{(i)}-y^{(i)})x^{(i)}$ (when we differentiate $J_{MSE}(w)$ wrt. particular weight, i.e. $w_1$)
         \end{itemize}
       
         \subsection{Gradient Descent}
@@ -520,8 +520,8 @@
             \item Test that model on a test set $D_{test}$ \& assess the model by computing $J_{D_{test}}$
           \end{enumerate}
           \item \textbf{Model Evaluation:} When comparing a logistic regression model's output with target label, use Accuracy or AUC-ROC, but not loss functions such as MSE, MAE, BCE
-          \item \textbf{Bias:} Error introduced by approximating a real-world problem (which may be very complex) with a simplified model $\rightarrow$ High bias is associated with Under-fitting \& perform poorly on both training and test data
-          \item \textbf{Variance:} Error introduced by the model's sensitivity to small fluctuations in the training data $\rightarrow$ High variance is associated with Over-fitting \& Perform well on the training data but poorly on test data
+          \item \textbf{Bias:} Error introduced by approximating a real-world problem (which may be very complex) with a simplified model $\rightarrow$ High bias is associated with Under-fitting \& perform poorly on both training and test data, Bias does not improve with an increased number of data points
+          \item \textbf{Variance:} Error introduced by the model's sensitivity to small fluctuations in the training data $\rightarrow$ High variance is associated with Over-fitting \& Perform well on the training data but poorly on test data, Obtaining more data points is likely to decrease variance
           \item \textbf{Hyperparameter Tuning:} To find the best model by looping through:
           \begin{enumerate}
             \item Pick hyperparameters (Eg. Learning rate of gradient descent, max depth of decision tree, min sample of decision tree, loss function of regression model)
@@ -542,8 +542,8 @@
           \begin{itemize}
             \item \underline{Cost Function:} $J(w) = \frac{1}{2m} \sum_{i=1}^{m} \left( h_w(x^{(i)}) - y^{(i)} \right)^2 + \frac{\lambda}{2m} \sum_{j=1}^{n} w_j^2$
             \item \underline{Gradient Descent:} $w_j \leftarrow w_j - \gamma \frac{1}{m} \sum_{i=1}^{m} \left( h_w(x^{(i)}) - y^{(i)} \right) x_j^{(i)} - \gamma \frac{\lambda}{m} w_j$
-            \item When $\gamma = 0$, there is no regularisation, overfitting occurs
-            \item When $\gamma = $ high value, there is too much regularisation, under fitting occurs (line equation reduces to just $w_0$) 
+            \item When $\lambda = 0$, there is no regularisation, overfitting occurs
+            \item When $\lambda = $ high value, there is too much regularisation, under fitting occurs (line equation reduces to just $w_0$) 
           \end{itemize}
           \item \textbf{Linear Regression with Regularisation (Normal Equation)}
           \includegraphics[width=0.7\linewidth]{20_regularisation_normal_equation.png}
