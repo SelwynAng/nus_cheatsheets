@@ -508,7 +508,7 @@
             \item If ROC curve is above diagonal random line $\rightarrow$ Model is more accurate than random chance
             \item \underline{Area under curve (AUC) of ROC:} AUC $>$ 0.5 means model is better than chance, AUC $\approx$ 1 means model is very accurate, AUC = 0 means model is predicting opposite class for each data
           \end{itemize}
-          \includegraphics[width=0.6\linewidth]{19_ROC.png}
+          \includegraphics[width=0.55\linewidth]{19_ROC.png}
         \end{itemize}
 
         \subsection{Model Evaluation \& Selection, Hyper-parameter Tuning}
@@ -645,15 +645,15 @@
             \item Given linear activation $g(x)=x$ and loss function $L=\frac{1}{2}(\hat{y} - y)^2$
             \item Do 1 round of forward propagation first, get the all the nodes' values $(v_i, u_i)$ first
             \item Do 1 round of back propagation next (RIGHT TO LEFT), calculating all the $\frac{dL}{da_i}$ then $\frac{dL}{dw_i}$ and then updating the weights via $w_i \leftarrow w_i - \gamma \frac{dL}{dw_i}$ \\
-            \includegraphics[width=0.5\linewidth]{22_backprop_single_unit.png}
+            \includegraphics[width=0.45\linewidth]{22_backprop_single_unit.png}
             \item $\frac{dL}{dw_i}=\frac{dL}{du_i}\frac{du_i}{dw_i}=\frac{dL}{du_i}v_i$
-            \includegraphics[width=0.7\linewidth]{23_backprog_linear.png}
+            \includegraphics[width=0.85\linewidth]{23_backprog_linear.png}
           \end{itemize}
           \item \textbf{Back Propagation with Non-linear Activation:}
           \begin{itemize}
             \item Given non-linear activation $g(x)$ and loss function $L=\frac{1}{2}(\hat{y} - y)^2$
             \item Same as linear activation, except need to account for $g'(z_i)$
-            \includegraphics[width=0.75\linewidth]{24_backprog_non_linear.png}
+            \includegraphics[width=0.85\linewidth]{24_backprog_non_linear.png}
           \end{itemize}
         \end{itemize}
 
@@ -780,7 +780,7 @@
             \item \underline{Average Linkage:} Average of distances of all pairs in 2 clusters
             \item \underline{Centroid Method:} Distance between centroids of 2 clusters
           \end{enumerate}
-          \item \textbf{Analysis:} It does not require number of clusters to be pre-defined, handles noise well, works well with non-linearly separable data, can be computationally expensive for large data sets ($O(n^3)$ to merge every cluster, where $O(n^2)$ to calculate distance for every pair \& $O(n)$ to find nearest pair) 
+          \item \textbf{Analysis:} It doesn't require \# of clusters to be pre-defined, handles noise well, works well with non-linearly separable data, can be computationally expensive for large data sets ($O(n^3)$ to merge every cluster, where $O(n^2)$ to calculate distance for every pair \& $O(n)$ to find nearest pair) 
         \end{itemize}
 
         \subsection{Dimensionality Reduction}
@@ -794,11 +794,11 @@
           \includegraphics[width=0.95\linewidth]{29_SVD.png}
           \begin{enumerate}
             \item $U$ is $n \times m$ and has $m$ orthonormal columns
-            \item $\sum$ is $m \times m$ and is diagonal with $\sigma_j \geq 0$ ordered from largest to smallest
+            \item $\sum$ is $m \times m$, diagonal with $\sigma_j \geq 0$ ordered from largest to smallest
             \item $V$ is $m \times m$ and has $m$ orthonormal columns and rows
           \end{enumerate}
           \item \textbf{Dimensionality Reduction via SVD:} Instead of $m$ singular values, we set all singular values except the first $r$ to 0 → Resulting matrix is the “best” approximation with new basis size of $r$ to the original matrix \\ Transforms from $n \times m = n \times m, m \times m, m \times m$ to $n \times m = n \times r, r \times r, r \times m$, where $r < m$
-          \includegraphics[width=0.95\linewidth]{30_dim_red_svd.png}
+          \includegraphics[width=1.0\linewidth]{30_dim_red_svd.png}
           \item \textbf{Reduction \& Reconstruction via SVD:} 
           \begin{enumerate}
             \item \underline{Data Matrix ($n \times m$):} $X = U \sum V^T \approx \tilde{U}\tilde{\sum}\tilde{V}^T$
@@ -814,7 +814,7 @@
             \item Define data matrix $\widehat{X}=(\hat{x}^{(1)},...,\hat{x}^{(m)})$
             \item Create covariance matrix of data: $Cov(X)= \frac{1}{m}\widehat{X}\widehat{X}^T$
             \item Compute SVD on $Cov(X)$ to obtain the $U$ matrix
-            \item Reduce to $r$ components to obtain $\widetilde{U}$ (choose minimum $r$ s.t. $\frac{\sum_{i=1}^r \sigma_i^2}{\sum_{i=1}^m \sigma_i^2} \geq 0.99$, where at least 99\% of variance in data is retained)
+            \item Reduce to $r$ components to obtain $\widetilde{U}$ (choose minimum $r$ s.t. $\frac{\sum_{i=1}^r \sigma_i^2}{\sum_{i=1}^m \sigma_i^2} \geq 0.99$, where $\geq$ 99\% of variance in data is retained)
           \end{enumerate}
         \end{itemize}
   \end{multicols*}
