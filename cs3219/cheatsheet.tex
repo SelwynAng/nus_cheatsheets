@@ -459,5 +459,217 @@
         \item \underline{Scalability:} Reading \& writing can be done in parallel with events in partitions $\rightarrow$ Scaling is straightforward (with Kafka, hitting scalability wall is impossible)
       \end{itemize}
     \end{itemize}
+
+    \section{Scalability}
+    \subsection{Goal of Scalability}
+    \begin{itemize}
+      \item Increase capacity in some app-specific dimension by:
+      \begin{enumerate}
+        \item Increase \# of requests that a system can process in a given time period
+        \item Increase amount of data to process \& manage
+        \item Increase resources (CPU, memory, servers)
+      \end{enumerate}
+      \item \textbf{2 strategies to scale:}
+      \begin{enumerate}
+        \item Replicate software processing resources (eg. sever) to provide more capacity to handle requests \& thus increase throughput
+        \item Optimize available resources by using more efficient algorithms, adding extra indexes in databases to speed up queries, rewrite server in faster programming language
+      \end{enumerate}
+    \end{itemize}
+
+    \subsection{Downside of Monolithic Architecture}
+    \begin{itemize}
+      \item Monoliths grow in complexity as app has more features $\rightarrow$ If request loads stay relatively low, app architecture can suffice
+      \item If request loads grow $\rightarrow$ Requests take longer to process (Single server will be overloaded, leading to bottleneck)
+    \end{itemize}
+
+    \subsection{Scaling for Service}
+    \begin{enumerate}
+      \item \textbf{Scale Up Service:} Upgrade server (More CPU, more memory)
+      \item \textbf{Scale Out Service:} Replicate service (run multiple copies on multiple server nodes $\rightarrow$ $N$ replicas, $R$ requests result in each server node processing $R/N$ requests), requires Load Balancer \& Session Store
+      \begin{itemize}
+        \item \underline{Load Balancer:} All user requests are sent to LB, which chooses a service replica target to process the request $|$ LB relays responses from service back to client
+        \item \underline{Session Store:} API implementations in services must retain no state associated with individual client's session for LB to be effective and servers to share requests evenly $\rightarrow$ Data representing state of the client will be stored in the Session Store
+      \end{itemize}
+    \end{enumerate}
+    \textbf{NOTE:} Simple Scale Out still has limits (Single database capability will still limit response time)
+
+    \subsection{Scaling for Database}
+    \begin{enumerate}
+      \item \textbf{Caching (query database infrequently):}
+      \begin{itemize}
+        \item Caching stores recently retrieved \& commonly accessed database results in memory, so they can be retrieved quickly
+        \item For data that is \textit{frequently read and changes rarely}, processing logic can be modified to first check a distributed cache $\rightarrow$ If data not in cache, code must query database \& load results into cache as well as return it to caller $\rightarrow$ Decide when to remove/invalidate cached results
+      \end{itemize}
+      \item \textbf{Scale Up Database:} Scale up to bigger, more powerful data store (However, database grows to exceed processing capability of a single node, Low latency database accesses are required to service clients spread around globe)
+      \item \textbf{Scale Out Database using Read Replicas:} Configure $\geq 1$ nodes as read replicas of main database (Writes are only possible to Primary node, All changes are asynchronously replicated to Secondary nodes, Secondary nodes are used as read replicas \& are physically located in different regions to support global clients)
+      \item \textbf{Scale Out Database by Partitioning Data:} Distribute database over multiple independent disk partitions \& database engines
+      \begin{itemize}
+        \item \underline{Horizontal Partitioning (split by row):} Splits logical table into multiple physical partitions (Individual rows allocated a partition based on some value in the row or hash function on primary key)
+        \item \underline{Vertical Partitioning (split by column):} Partitions table by columns, where a row is split into $\geq 1$ parts (Eg. Partition a row between static, read-only data \& dynamic data)
+      \end{itemize}
+    \end{enumerate}
+
+    \subsection{Scaling processing with multiple tiers}
+    \begin{enumerate}
+      \item A service can call $\geq 1$ dependent services, which in turn are replicated \& load-balanced
+      \item Provide service replicas for web clients \& mobile clients, each of which are scaled independently based on individual load $\rightarrow$ Each service replica can be load-balanced \& use caching, while utilizing a core service that provides database access \textit{(similar to BFF pattern)}
+      \item \textbf{Swim Lanes/Pod Architecture/Fault-Isolation Architecture:} Placing a group of services within a boundary such that any failure within that boundary is contained within the boundary \& the failure does not propagate or affect services outside of the said boundary $\rightarrow$ To meet expectations of region-specific requirements, have faster response time from customer-specific perspective
+    \end{enumerate}
+
+    \subsection{Scaling in 3D}
+    \begin{enumerate}
+      \item \textbf{X-axis:} Horizontal scaling (run multiple identical copies of app behind LB)
+      \item \textbf{Y-axis:} Splits app into multiple, different functions or services
+      \item \textbf{Z-axis:} Distributing data storage
+    \end{enumerate}
+
+    \section{Asynchronous Communication}
+    \subsection{Request-Reply Pattern}
+    \begin{itemize}
+      \item \textbf{Synchronous:} Client sends a request for a resource to a server $\rightarrow$ Server sends back a response corresponding to the resource or a response with error message
+      \item \textbf{Asynchronous:} Decouple backend processing from requester, where backend processing needs to be asynchronous, but requester still needs a clear response
+      \begin{enumerate}
+        \item Async API endpoint accepts work from client and puts work in a queue for processing $\rightarrow$ Sends a HTTP response including location header to a status endpoint
+        \item Backend function picks up operation queue, does the work, writes result to a shared storage location
+        \item Status endpoint checks whether request was completed $\rightarrow$ If request is completed, it returns a response, or redirects client to resource URL $\rightarrow$ If request is still pending, returns 202 accepted with self-referencing location \& ETA for completed resource
+      \end{enumerate}
+      \includegraphics[width=0.85\linewidth]{4_async_request_reply.png}
+    \end{itemize}
+
+    \subsection{Event VS Message}
+    \begin{itemize}
+      \item \textbf{Similarities:} Both utilize async communication, facilitate decoupling of services, carry some info from 1 to other services to consume
+      \item \textbf{Differences:}
+      \begin{itemize}
+        \item \underline{Event:} Carries an info which is a fact, a state change, something which has happened in the past $|$ Events are broadcasted for other services to consume \& typically use Pub-Sub pattern $|$ Publisher owns the event payload \& underlying channel (Topic) on which events gets published
+        \item \underline{Message:} Carries a request (command/query) to be executed by another service $|$ Messages are point-to-point interactions between 2 services $|$ Receiver owns the message payload \& underlying channel (Queue) on which messages are published
+      \end{itemize}
+      \item \textbf{Topic VS Queue:}
+      \begin{itemize}
+        \item \underline{Topic:} Enables one-to-many communication, reaching multiple subscribers simultaneously $|$ Allows for non-sequential processing
+        \item \underline{Queue:} Single receiver, ensuring each message reaches one receiver $|$ follows FIFO principle
+      \end{itemize}
+      \item \textbf{Design Examples}
+      \includegraphics[width=0.85\linewidth]{5_design_example.png}
+      \includegraphics[width=0.85\linewidth]{6_design_example.png}
+    \end{itemize}
+
+    \subsection{Protocols \& Brokers}
+    \begin{itemize}
+      \item \textbf{Pub-Sub Broker (Multiple Receiver/Topic/Event-based)}
+      \begin{itemize}
+        \item Eg. Kafka $\rightarrow$ Each Kafka Broker is responsible for delivering the event to right consumer $|$ Can add as many brokers we need without any downtime (enables horizontal scaling)
+        \item Unit of data within Kafka is an Event $\rightarrow$ Events are categorized into Topics $\rightarrow$ Topics are broken down into partitions $\rightarrow$ All events produced with given key get written to same partition
+      \end{itemize}
+      \includegraphics[width=0.7\linewidth]{7_kafka.png}
+      \item \textbf{AMQP (Advanced Message Queuing Protocol) (Can both configured for both topic \& queue)}
+      \begin{itemize}
+        \item Messages are published to exchanges $\rightarrow$ Exchanges then distribute message copies to queues $\rightarrow$ Broker either deliver messages to consumers subscribed to queues OR Consumers pull messages from queues on demand
+        \includegraphics[width=0.75\linewidth]{8_AMQP_Broker.png}
+        \item \underline{Exchange Types:} \\
+        \textit{NOTE: Binding is a link set up to bind a queue to an exchange $|$ Routing key is message attribute the exchange looks at when deciding how to route the message to queues}
+        \begin{enumerate}
+          \item \textit{Direct:} Message is routed to queues whose binding keys exactly matches the routing key of the message
+          \item \textit{Fanout:} Fanout exchange routes messages to all queues bound to it
+          \item \textit{Topic:} Topic exchange does a wildcard match between routing key \& routing pattern specified in the binding
+        \end{enumerate}
+      \end{itemize}
+    \end{itemize}
+
+    \subsection{Persistent VS Transient Communication}
+    \begin{itemize}
+      \item \textbf{Persistent Communication:} Messages are stored at each intermediate hop along the way until next node is ready to take delivery of message
+      \item \textbf{Transient Communication:} Messages are buffered only for small periods of time $\rightarrow$ If message cannot be delivered or next host is down, message is discarded
+    \end{itemize}
+
+    \section{Messaging Patterns}
+    \includegraphics[width=0.85\linewidth]{9_Messaging_Patterns.png}
+
+    \subsection{Message Construction}
+    \begin{itemize}
+      \item Message includes a header specifying type of info being transmitted, its origin, destination, size \& other structural info
+      \item Message includes a payload containing actual info
+      \item Message includes optional properties that are used for message selection \& filtering
+    \end{itemize}
+
+    \subsection{Message Channel}
+    \begin{itemize}
+      \item \textbf{One-way Property:} A channel transmits messages in 1 direction, 2-way message needs a 2-way channel (Eg. Request-and-reply each needs its own channel)
+      \item \textbf{Return Address:} Request contains a return address to tell replier where to send reply to
+      \item \textbf{Correlation ID:} Reply should contain Correlation ID that specifies which request this reply is for (Message ID of Request == Correlation ID of Reply, Correlation ID of initial Request will be null)
+      \item \textbf{Special Purpose Channels:} \underline{Invalid Message Channel} (Handles erroneous messages) $|$ \underline{Dead Letter Channel} Handles message that could not be delivered $|$ \underline{Datatype Channel} (For specific type of data, all messages on a given channel contain same data type) 
+      \item \textbf{Pub-sub Channels:} Used when multiple parties are interested in certain messages (Any message published to a topic is received by all topic subscribers) $\rightarrow$ Pub-sub request-response patterns are useful when it is important to communicate with multiple services that do parallel work, but their responses need to be aggregated afterwards \textit{(NOTE: Pub-sub channel for request messages, P2P channel for response messages)}
+    \end{itemize}
+
+    \subsection{Message Routing}
+    \begin{itemize}
+      \item \textbf{Message Routers:} Consume messages from 1 message channel \& reinsert them into different message channels, depending on a set of conditions
+      \item \textbf{Simple Routers:} Route messages from 1 inbound channel to $\geq 1$ outbound channel
+      \item \textbf{Composed Routers:} Combine multiple simple routers to create more complex message flows
+      \item \textbf{Context-based Router:} Decides the message's destination based on specific contexts (used for load balancing, test or failover functionality)
+      \item \textbf{Content-based Router:} Examines message content \& routes message onto a different channel based on message data $|$ has to have knowledge of all possible recipients \& their capabilities $|$ Changes in recipient list leads to change in content-based router
+      \begin{itemize}
+        \item \underline{Message Filter:} Special kind of Content-based router that eliminates undesired messages from a channel based on a set of criteria $|$ has only 1 output channel (for accepted message)
+        \item \underline{Comparison against Pub-Sub Channel with Message Filter:} Content-Based Router has exactly 1 consumer receiving each message, Central control and maintenance, Needs to know about participants, Often used for business transactions like orders, Generally more efficient with queue-based channels $|$ Pub-Sub Channel with Message Filter can have $\geq 1$ consumer to consume a message, Distributed control and maintenance, No knowledge of participants required, Used for event notifications/info messages, Generally more efficient with Pub-Sub Channels
+      \end{itemize}
+      \item \textbf{Message Splitter:} A single message split into multiple messages $\rightarrow$ Each message can then be routed using a Content-Based Router
+      \item \textbf{Message Aggregator:} Multiple messages aggregated into a single message $\rightarrow$ Aggregator then publishes message to output channel for processing
+      \item \textbf{Message Scatter-Gather:} Routes/broadcasts single message to multiple participants concurrently \& reassembles/aggregates replies into single message $\rightarrow$ Ideal for requesting responses from multiple parties \& then aggregating and processing that data
+      \includegraphics[width=0.85\linewidth]{10_splitter_agg_sg.png}
+    \end{itemize}
+
+    \subsection{Message Transformation}
+    \begin{itemize}
+      \item \textbf{Message Translator:} Converts messages from one format into another $\rightarrow$ resolves differences in message formats without changing the apps or having apps know about each other's data format, but if large number of apps communicate with each other, 1 Message Translator may be needed btw. each pair of communicating apps
+      \item \textbf{Canonical Data Model:} Provides additional level of indirection btw. app's individual data formats $\rightarrow$ System A sends data to System B by first translating its data into canonical format, System B then receives data from System A and translates canonical format into its own data format
+    \end{itemize}
+
+    \subsection{Message Endpoint}
+    \begin{itemize}
+      \item \textbf{Definition:} Message Endpoint is interface btw. an app and a messaging system  $\rightarrow$ Used to send messages or receive them, but 1 instance does not do both $\rightarrow$ Endpoint is channel-specific (Single app will use multiple endpoints to interface with multiple channels)
+      \item \textbf{Main Endpoint Types:} MessageProducer \& MessageConsumer
+      \item \textbf{Consumer Endpoints:}
+      \begin{enumerate}
+        \item \underline{Polling Consumer:} Proactively reads messages once it is ready to consume them (Wants to control when it consumes each message)
+        \item \underline{Event-Driven Consumer:} Reactively processes a message on its arrival (Message delivery is an event that triggers receiver into action)
+      \end{enumerate}
+    \end{itemize}
+    
+    \section{Object Interaction Design Patterns}
+    \subsection{Design Pattern}
+    \begin{itemize}
+      \item \textbf{Definition:} Design Pattern is a solution \textit{(General design that can be applied to problems in this context)} to a problem \textit{(Goal to be achieved in the context)} in a context \textit{(Recurring situation in which pattern applies)}
+      \item \textbf{Bridge Pattern:} Used to decouple an abstraction from its implementation via composition (not inheritance), so they can evolve independently $\rightarrow$ Useful when extending a class's functionality in multiple ways without creating a proliferation of subclasses
+      \begin{itemize}
+        \item Normally consists of (1): Abstraction, (2): Refined Abstraction, (3): Implementation, (4): Concrete Implementation, where Abstraction contains Implementation
+      \end{itemize}
+      \includegraphics[width=0.75\linewidth]{11_bridge_pattern.png}
+      \item \textbf{Proxy Pattern:} Use an intermediary object (Proxy) between a base object and its clients $\rightarrow$ Clients no longer have direct reference to base object, but instead interact with proxy $\rightarrow$ Proxy has reference to base object \& implements same interface as base object (Proxy contains base object)
+    \end{itemize}
+    
+    \subsection{GoF Patterns}
+    \begin{itemize}
+      \item \textbf{Pattern Categories}
+      \begin{enumerate}
+        \item \underline{Creational Patterns:} Help designers handle issues with object creation (Eg. Factory pattern)
+        \item \underline{Structural Patterns:} Provide a structure to relationship btw. objects (Eg. Facade, Bridge, Proxy, Adapter patterns)
+        \item \underline{Behavioral Patterns:} Define how objects interact with each other to deliver a task (Eg. Observer, Mediator patterns)
+      \end{enumerate}
+      \item \textbf{Adapter Pattern:} Useful to reconcile differences btw. 2 incompatible interfaces, allowing them to work together seamlessly (Adapter is a class that implements the client interface, while wrapping the service object)
+      \includegraphics[width=0.85\linewidth]{12_adapter_pattern.png}
+      \item \textbf{Facade Pattern:} Provide a unified interface to a set of interfaces in a subsystem $\rightarrow$ Clients interact with the facade instead of individual subsystem (Eg. API Gateway)
+      \item \textbf{Observer Pattern:}
+      \begin{itemize}
+        \item Defines a one-to-many dependency btw. objects so that when 1 object (Observable)changes state, all its dependents (Observers) are notified and updated
+        \item Observers register themselves to Observable because they want to be notified when there is a change
+        \item \underline{Push Model:} Observable changes state $\rightarrow$ Notifies all observers $\rightarrow$ Observer calls back to Observable to retrieve more detailed info
+        \item \underline{Pull Model:} Observable changes state $\rightarrow$ Subject pushes a snapshot of its state to all observers
+      \end{itemize}
+      \includegraphics[width=0.75\linewidth]{13_observer_pattern.png}
+      \item \textbf{Mediator Pattern:} Define an object that encapsulates how a set of objects interact $\rightarrow$ Promotes loose coupling by keeping objects from referring to each other explicitly \& letting us vary their interaction independently $\rightarrow$ If an object is updated with new interaction rules or a new object is added, only mediator object needs to be updated \\
+      Event bus (Pub-sub channel) is similar to Mediator Pattern
+      \includegraphics[width=0.75\linewidth]{14_mediator_pattern.png}
+      \item \textbf{Data Transfer Object (DTO) Pattern:} A group of values in an ad-hoc structure just for purpose of passing data around (No business logic, only contain storage, accessors, serialization/parsing methods) $\rightarrow$ Reduces roundtrips to server by batching up multiple parameters in a single call
+    \end{itemize}
 \end{multicols*}
 \end{document}
