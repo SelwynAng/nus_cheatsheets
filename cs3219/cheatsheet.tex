@@ -276,7 +276,7 @@
       \item Complex system is fundamentally a collection of multiple domain models (sub-domains)
       \item\textbf{Domain:} Problem space that a business occupies and provides solution to
       \item \textbf{Sub-domain:} Component of main domain, belongs to problem space
-      \item \textbf{Bounded Context:} High cohesive boundary relevant to the sub-domain $\rightarrow$ Belongs to solution space
+      \item \textbf{Bounded Context:} High cohesive boundary relevant to the sub-domain $\rightarrow$ Belongs to solution space $\rightarrow$ Not the same as Microservice (BC is a concept, while MS is an implementation $\rightarrow$ Ideally, a MS should align with a BC \& it is possible for a BC to map to multiple MSes \& a MS to implement multiple BCs)
       \item \textbf{Types of Collaborations between different Bounded Contexts (BC):}
       \begin{enumerate}
         \item \underline{Shared Kernel:} 2 contexts are developed independently, but they end up overlapping some subset of each other's domain
@@ -369,7 +369,7 @@
     \subsection{Immutable Infrastructure \& Infrastructure as Code}
     \begin{itemize}
       \item \textbf{Immutable Infrastructure:} Cannot be changed after it is created (updating immutable object requires it to be destroyed and replaced with a new one) $\rightarrow$ Contain behavior and structures that are easier to predict \& reproduce because they do not change
-      \item \textbf{Infrastructure as Code:} All infrastructure must be represented as a set of machine-readable files/code
+      \item \textbf{Infrastructure as Code:} All infrastructure must be represented as a set of machine-readable files/code $\rightarrow$ Config files to specify cloud resources needed for deployment $\rightarrow$ Benefits include speed (no humans needed for deployment), consistency (avoid human errors), accountability (traceable via code)
     \end{itemize}
     
     \subsection{Service Collaboration \& Communication}
@@ -657,7 +657,8 @@
       \end{enumerate}
       \item \textbf{Adapter Pattern:} Useful to reconcile differences btw. 2 incompatible interfaces, allowing them to work together seamlessly (Adapter is a class that implements the client interface, while wrapping the service object)
       \includegraphics[width=0.85\linewidth]{12_adapter_pattern.png}
-      \item \textbf{Facade Pattern:} Provide a unified interface to a set of interfaces in a subsystem $\rightarrow$ Clients interact with the facade instead of individual subsystem (Eg. API Gateway)
+      \item \textbf{Facade Pattern:} Provide a unified interface to a set of interfaces in a subsystem $\rightarrow$ Clients interact with the facade instead of individual subsystem (Eg. API Gateway) \\
+      \textit{NOTE: Difference btw. Facade \& Adapter is that Facade focuses more on simplifying \& unifying access, while Adapter focuses more on improving compatibility (Eg. RCS Communicator component from tutorial is more of an Adapter)}
       \item \textbf{Observer Pattern:}
       \begin{itemize}
         \item Defines a one-to-many dependency btw. objects so that when 1 object (Observable)changes state, all its dependents (Observers) are notified and updated
