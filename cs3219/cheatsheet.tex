@@ -565,13 +565,14 @@
       \item \textbf{AMQP (Advanced Message Queuing Protocol) (Can both configured for both topic \& queue)}
       \begin{itemize}
         \item Messages are published to exchanges $\rightarrow$ Exchanges then distribute message copies to queues $\rightarrow$ Broker either deliver messages to consumers subscribed to queues OR Consumers pull messages from queues on demand
+        \item Protocol can be used with any programming language (Can be used by any client that supports AMQP in any language)
         \includegraphics[width=0.75\linewidth]{8_AMQP_Broker.png}
         \item \underline{Exchange Types:} \\
         \textit{NOTE: Binding is a link set up to bind a queue to an exchange $|$ Routing key is message attribute the exchange looks at when deciding how to route the message to queues}
         \begin{enumerate}
-          \item \textit{Direct:} Message is routed to queues whose binding keys exactly matches the routing key of the message
-          \item \textit{Fanout:} Fanout exchange routes messages to all queues bound to it
-          \item \textit{Topic:} Topic exchange does a wildcard match between routing key \& routing pattern specified in the binding
+          \item \textit{Direct:} Message is routed to queues whose binding keys exactly matches the routing key of the message (1-to-1)
+          \item \textit{Fanout:} Fanout exchange routes messages to all queues bound to it (1-to-many)
+          \item \textit{Topic:} Topic exchange does a wildcard match between routing key \& routing pattern specified in the binding (1-to-many)
         \end{enumerate}
       \end{itemize}
     \end{itemize}
@@ -643,7 +644,7 @@
       \begin{itemize}
         \item Normally consists of (1): Abstraction, (2): Refined Abstraction, (3): Implementation, (4): Concrete Implementation, where Abstraction contains Implementation
       \end{itemize}
-      \includegraphics[width=0.75\linewidth]{11_bridge_pattern.png}
+      \includegraphics[width=0.7\linewidth]{11_bridge_pattern.png}
       \item \textbf{Proxy Pattern:} Use an intermediary object (Proxy) between a base object and its clients $\rightarrow$ Clients no longer have direct reference to base object, but instead interact with proxy $\rightarrow$ Proxy has reference to base object \& implements same interface as base object (Proxy contains base object)
     \end{itemize}
     
@@ -651,25 +652,29 @@
     \begin{itemize}
       \item \textbf{Pattern Categories}
       \begin{enumerate}
-        \item \underline{Creational Patterns:} Help designers handle issues with object creation (Eg. Factory pattern)
-        \item \underline{Structural Patterns:} Provide a structure to relationship btw. objects (Eg. Facade, Bridge, Proxy, Adapter patterns)
-        \item \underline{Behavioral Patterns:} Define how objects interact with each other to deliver a task (Eg. Observer, Mediator patterns)
+        \item \underline{Creational:} Help designers handle object creation issues (Eg. Factory)
+        \item \underline{Structural:} Provide a structure to relationship btw. objects (Eg. Facade, Bridge, Proxy, Adapter)
+        \item \underline{Behavioral:} Define how objects interact with each other to deliver a task (Eg. Observer, Mediator)
       \end{enumerate}
-      \item \textbf{Adapter Pattern:} Useful to reconcile differences btw. 2 incompatible interfaces, allowing them to work together seamlessly (Adapter is a class that implements the client interface, while wrapping the service object)
-      \includegraphics[width=0.85\linewidth]{12_adapter_pattern.png}
+      \item \textbf{Adapter Pattern:} Useful to reconcile differences btw. 2 incompatible interfaces, allowing them to work together seamlessly (Adapter is a class that implements the client interface, while wrapping the service object) \\ 
+      (+): Single Responsibility Principle (Separate interface/data conversion code from primary business logic) $|$ Open/Closed Principle (Can introduce new types of adapters without breaking existing client code) \\
+      (-): Increased code complexity due to new interfaces \& classes
+      \includegraphics[width=0.8\linewidth]{12_adapter_pattern.png}
       \item \textbf{Facade Pattern:} Provide a unified interface to a set of interfaces in a subsystem $\rightarrow$ Clients interact with the facade instead of individual subsystem (Eg. API Gateway) \\
-      \textit{NOTE: Difference btw. Facade \& Adapter is that Facade focuses more on simplifying \& unifying access, while Adapter focuses more on improving compatibility (Eg. RCS Communicator component from tutorial is more of an Adapter)}
+      (+): Isolate Code from complexity of subsystem $|$ (-): Facade can become god object coupled to all classes \\
+      \textit{NOTE: Difference btw. Facade \& Adapter is that Facade focuses more on simplifying \& unifying access, while Adapter focuses more on improving compatibility (Eg. RCS Communicator component is more of an Adapter)}
       \item \textbf{Observer Pattern:}
       \begin{itemize}
-        \item Defines a one-to-many dependency btw. objects so that when 1 object (Observable)changes state, all its dependents (Observers) are notified and updated
+        \item Defines a one-to-many dependency btw. objects so that when Observable changes state, all Observers are notified and updated
         \item Observers register themselves to Observable because they want to be notified when there is a change
+        \item (+): Open/Closed Principle $|$ Can establish relations btw. objects at runtime $|$ (-): Observers are notified in random order
         \item \underline{Push Model:} Observable changes state $\rightarrow$ Notifies all observers $\rightarrow$ Observer calls back to Observable to retrieve more detailed info
         \item \underline{Pull Model:} Observable changes state $\rightarrow$ Subject pushes a snapshot of its state to all observers
       \end{itemize}
-      \includegraphics[width=0.75\linewidth]{13_observer_pattern.png}
+      \includegraphics[width=0.65\linewidth]{13_observer_pattern.png}
       \item \textbf{Mediator Pattern:} Define an object that encapsulates how a set of objects interact $\rightarrow$ Promotes loose coupling by keeping objects from referring to each other explicitly \& letting us vary their interaction independently $\rightarrow$ If an object is updated with new interaction rules or a new object is added, only mediator object needs to be updated \\
-      Event bus (Pub-sub channel) is similar to Mediator Pattern
-      \includegraphics[width=0.75\linewidth]{14_mediator_pattern.png}
+      (+): Single Responsibility Principle (extract communication into single place) $|$ Open/Closed Principle $|$ Reduce coupling \& reuse components $|$ (-): Mediator can become god object
+      \includegraphics[width=0.65\linewidth]{14_mediator_pattern.png}
       \item \textbf{Data Transfer Object (DTO) Pattern:} A group of values in an ad-hoc structure just for purpose of passing data around (No business logic, only contain storage, accessors, serialization/parsing methods) $\rightarrow$ Reduces roundtrips to server by batching up multiple parameters in a single call
     \end{itemize}
 \end{multicols*}
