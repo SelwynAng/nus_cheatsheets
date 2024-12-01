@@ -231,12 +231,13 @@
           \item \textit{Filter} transforms input streams, computes incrementally $\rightarrow$ output begins before input is consumed, is independent, shares no state with other filters
           \item \textit{Pipe} transmits output of 1 filter to input of another filter
           \item \textit{Purpose:} Divides the app's task into several self-contained data process steps \& connect these steps to data processing pipeline via intermediate data buffers $\rightarrow$ Data flows in streams (good for image, audio, video, or batch data processing with limited user interaction)
+          \item We can use files as pipes that capture output of one process and feed input to another process
         \end{itemize}
         \item \underline{Model-View-Controller}
         \begin{itemize}
           \item View (widgets in UI, buttons, text boxes), Controller (coordinates btw. Model and View), Model (business logic)
           \item \textit{Benefits:} Separation of concerns, Facilitates extensibility, Restricted communication reduces complexity \& side effects, Better testability (easy to mock components), Frameworks provide MVC solution
-          \item \textit{Web MVC:} Controller (handles user HTTP requests, select model, prepare view), View (renders HTTP response), Model (business logic \& persistence)
+          \item \textit{Web MVC:} Controller (handles HTTP requests, select model, prepare view), View (renders HTTP response), Model (logic \& persistence)
           \item \textit{Single Page Applications (SPA):} Send query and retrieve data in background without refreshing webpage
         \end{itemize}
       \end{enumerate}
@@ -253,7 +254,7 @@
         \item \underline{Layered System:} App must be organized as a layered system $\rightarrow$ Improved overall system complexity by restricting complexity to individual layers, intermediary servers may improve system availability \& performance, provide data transformation \& filtering 
         \item \underline{Uniform Interface:} Uniform way of interacting with a given server irrespective of device/application, exploits HTTP/HTTPS requests \& responses
         \begin{itemize}
-          \item \textit{Resource Identifier:} Stable, global, unique method to identify resources
+          \item \textit{Resource Identifier:} Global, unique method to identify resources
           \item \textit{Resource Representation:} Components perform operations on resource representations
         \end{itemize}
         \item \underline{Code-on-demand:} Allow client functionality to be extended by downloading executable code, simplifies client from having to pre-implement all functionality, allows extensibility
