@@ -669,8 +669,8 @@
         \item Defines a one-to-many dependency btw. objects so that when Observable changes state, all Observers are notified and updated
         \item Observers register themselves to Observable because they want to be notified when there is a change
         \item (+): Open/Closed Principle $|$ Can establish relations btw. objects at runtime $|$ (-): Observers are notified in random order
-        \item \underline{Push Model:} Observable changes state $\rightarrow$ Notifies all observers $\rightarrow$ Observer calls back to Observable to retrieve more detailed info
-        \item \underline{Pull Model:} Observable changes state $\rightarrow$ Subject pushes a snapshot of its state to all observers
+        \item \underline{Pull Model:} Observable changes state $\rightarrow$ Notifies all observers $\rightarrow$ Observer calls back to Observable to retrieve more detailed info
+        \item \underline{Push Model:} Observable changes state $\rightarrow$ Subject pushes a snapshot of its state to all observers
       \end{itemize}
       \includegraphics[width=0.65\linewidth]{13_observer_pattern.png}
       \item \textbf{Mediator Pattern:} Define an object that encapsulates how a set of objects interact $\rightarrow$ Promotes loose coupling by keeping objects from referring to each other explicitly \& letting us vary their interaction independently $\rightarrow$ If an object is updated with new interaction rules or a new object is added, only mediator object needs to be updated \\
